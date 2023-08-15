@@ -96,4 +96,5 @@
 .product-footer-link:hover {
   color: rgb(206, 135, 4);
   cursor: pointer;
+  text-decoration: underline;
 }
