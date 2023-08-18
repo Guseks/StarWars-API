@@ -3,13 +3,12 @@ body {
   padding: 0;
   height: 1500px;
   font-family: sans-serif;
+  color: rgb(41, 41, 41);
 }
 
 header {
   height: 140px;
-  background-color: white;
   margin: -10px;
-  
   display: flex;
   position: relative;
   
@@ -64,12 +63,11 @@ header {
 .top-left-section button {
   
   font-size: 13px;
-  color: #292929;
-  background-color: transparent;
   text-align: center;
   padding: 5px 10px;
   margin-right: 15px;
   border: none;
+  background-color: white;
   
   
 }
@@ -127,9 +125,6 @@ header {
   align-items: center;
   justify-content: center;
 }
-.order-button:hover {
-  background-color: rgb(255, 188, 13);
-}
 
 .navbar {
   width: 880px;
@@ -179,9 +174,7 @@ header {
   padding: 0px 12px;
   padding-top: 80px;
   display: flex;
-  align-items: center;
-  color: #292929;
-  
+  align-items: center; 
   line-height: 22px;
 }
 
@@ -189,7 +182,7 @@ header {
   height: 550px;
   width: 1170px;
   padding: 0px 12px;
-  padding-bottom: 150px;
+  padding-bottom: 50px;
   
   display: flex;
   flex-direction: row;
@@ -227,7 +220,7 @@ header {
 .card span {
   font-size: 16px;
   margin-top: 20px;
-  color: rgb(41, 41, 41);
+  
 }
 
 .card button {
@@ -238,7 +231,10 @@ header {
   background-color: rgb(255, 188, 13);
   margin-top: 40px;
   font-size: 15px;
-  color: rgb(41, 41, 41);
+  
+}
+.card button:hover {
+  cursor: pointer;
 }
 
 .card .diet {
@@ -257,31 +253,37 @@ footer {
   display: flex;
   flex-direction: column;
   padding-bottom: 100px;
-  border: 2px solid blue;
+  
   
 }
 
 
 .footer-card-container {
   display: flex;
-  column-gap: 120px;
+  column-gap: 80px;
   justify-content: center;
-  border: 2px solid greenyellow;
+  
   padding-bottom: 50px;
 }
 .footer-card {
-  height: 400px;
-  width: 200px;
-  border: 2px solid red;
+  height: 450px;
+  width: 300px;
+  
   display: flex;
   flex-direction: column;
   row-gap: 15px;
 }
 .footer-card h2 {
-  font-size: 18px;
+  font-size: 16px;
 }
 .footer-card span {
-  font-size: 18px;
+  font-size: 16px;
+}
+.footer-card a {
+  font-size: 16px;
+}
+.footer-card a:hover, .footer-card span:hover {
+  cursor: pointer;
 }
 .buttons-icons-container {
   height: 100px;
@@ -289,10 +291,13 @@ footer {
   display: flex;
   position: relative;
   border-bottom: 1px solid rgb(200, 200, 200);
+  
+  padding-bottom: 50px;
 }
 
 .icons-container {
   width: 300px;
+  
   display: flex;
 }
 
@@ -300,9 +305,11 @@ footer {
   height: 32px;
   width: 32px;
   
-  margin-right: 16px;
-  border-radius: 16px;
-  border: 1px solid rgb(200, 200, 200);
+  margin-right: 16px;  
+}
+
+.icons-container img:hover {
+  cursor: pointer;
 }
 .button-container {
   width: 400px;
@@ -315,11 +322,11 @@ footer {
 }
 
 .button-container img {
-  width: 180px;
-  border: 2px solid black;
-  height: 50px;
+  width: 150px;
+  
+  height: 36x;
   border-radius: 6px;
-  padding: 3px;
+  padding: 2px;
   background-color: black;
   
 }
@@ -334,18 +341,35 @@ footer {
 }
 
 .footer-bottom-links {
-  width: 600px;
-  padding-right: 150px;
+  width: 620px;
+  padding-right: 100px;
   
   height: 100px;
-  border: 2px solid greenyellow;
+  
   display: flex;
   flex-wrap: wrap;
-  column-gap: 60px;
+  column-gap: 40px;
   
+}
+.footer-bottom-links span {
+  font-size:  15px;
+  padding: 0;
+}
+.footer-bottom-links span:hover {
+  cursor: pointer;
 }
 .copyright {
   height: 100px;
-  width: 370px;
-  border: 2px solid red;
+  width: 350px;
+  
+  display: flex;
+  
+  font-size: 15px;
+}
+.copyright img {
+  height: 30px;
+  
+}
+.copyright span {
+  padding-left: 50px;
 }
