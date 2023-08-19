@@ -440,14 +440,101 @@ addChildElement(document.body, mainContent);
 
 function designFooter(){
   const objectsToLisen = [];
-  objectsToLisen.push(...designFooterTop());
+  const footer = document.createElement('footer');
+  const footerCards = designFooterTop();
+  addChildElement(footer, footerCards[1]);
+
+  //Styling footer element
+  let styles = [
+    {id: 'height', value: '700px'},
+    {id: 'width', value: '1130px'},
+    {id: 'margin', value: 'auto'},
+    {id: 'padding', value: '30px'},
+    {id: 'display', value: 'flex'},
+    {id: 'flex-direction', value: 'column'},
+    {id: 'padding-bottom', value: '100px'}
+  ];
+  applyStyles(styles, footer);
+  addChildElement(document.body, footer);
+  objectsToLisen.push(...footerCards[0]);
   objectsToLisen.push(...designFooterBottom());
   return objectsToLisen;
 }
 
+function footerCard(textArray, footerCardContainer){
+  const footerCard = document.createElement('div');
+  const fixedLinksArray1 = textArray.map((element, index) =>{
+    if(index === 0) {
+      const h2 = document.createElement('h2');
+      h2.textContent = element;
+      return h2;
+    }
+    else {
+      const spanElement = document.createElement('span');
+      spanElement.textContent = element;
+      return spanElement;
+    }
+    
+  });
+  const headline1 =fixedLinksArray1.reverse().pop();
+
+  // ---- styling -------
+  //card
+  let styles = [
+    {id: 'height', value: '450px;'},
+    {id: 'width', value: '300px'},
+    {id: 'display', value: 'flex'},
+    {id: 'lex-direction', value: 'column'},
+    {id: 'row-gap', value: '15px'}
+  ];
+  applyStyles(styles, footerCard);
+  //headline
+  applyStyles([{id: 'font-size', value: '16px'}], headline1);
+
+  //text elements
+
+
+  addChildElement(footerCard, headline1);
+  fixedLinksArray1.forEach(element =>{
+    addChildElement(footerCard, element);
+  });
+  addChildElement(footerCardContainer, footerCard);
+}
 function designFooterTop (){
   const objectsToLisen = [];
-  return objectsToLisen;
+
+  const footerCardContainer = document.createElement('div');
+  
+
+  const text1='About Us,About Us Overview,Leadership Team,Values In Action,Franchise Info,Recalls & Alerts,Real Estate,Accessibility,Investor Relations,News & Notifications';
+  const textArray1 = text1.split(',');
+  const text2 = `Services,Services Overview,Wi-Fi,PlayPlaces & Parties,McDelivery®,Mobile Order & Pay,Trending Now,McDonald’s Merchandise,Family Fun Hub,MyMcDonald's Rewards,McCafé®`
+  const textArray2 = text2.split(',');
+  const text3 = `Community,Community Overview,Meet the 1 in 8,HACER® Scholarships for Hispanic Students,Ronald McDonald House Charities,McDonald’s Asian Pacific American,McDonald’s International,`
+                + `Black and Positively Golden,McDonald’s LGBTQ+`;
+  const textArray3 = text3.split(',');
+  
+
+  const arraysOfText = [textArray1, textArray2, textArray3];
+  arraysOfText.forEach(textArray => {
+    footerCard(textArray, footerCardContainer);
+  });
+  
+  // ---- Styling footerCardContainer
+  let styles = [
+    {id: 'display', value: 'flex'},
+    {id: 'column-gap', value: '80px'},
+    {id: 'justify-content', value: 'center'},
+    {id: 'padding-bottom', value: '50px'}
+  ];
+  applyStyles(styles, footerCardContainer);
+  
+  console.log(footerCardContainer);
+  
+  
+
+
+  return [objectsToLisen, footerCardContainer];
 }
 function designFooterBottom(){
   const objectsToLisen = [];
