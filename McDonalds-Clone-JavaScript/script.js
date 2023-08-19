@@ -447,6 +447,7 @@ function designFooter(){
   const footerCards = designFooterTop();
   const footerBottom = designFooterBottom();
   addChildElement(footer, footerCards[1]);
+  //addChildElement(footer, footerBottom[1]);
 
   //Styling footer element
   let styles = [
@@ -463,12 +464,14 @@ function designFooter(){
 
   //First element of the returned array is the objects we want to have hover function on
   objectsToLisen.push(...footerCards[0]);
-  objectsToLisen.push(...designFooterBottom());
+  //objectsToLisen.push(...footerBottom[0]);
 
   //Array is returned for the main loop to implement the eventListener
   return objectsToLisen;
 }
 
+
+//Help function to create footerCards and add them to the container. 
 function footerCard(textArray, footerCardContainer, objectsToLisen){
   const footerCard = document.createElement('div');
   const fixedLinksArray1 = textArray.map((element, index) =>{
@@ -501,7 +504,7 @@ function footerCard(textArray, footerCardContainer, objectsToLisen){
 
   //text elements
   fixedLinksArray1.forEach(element =>{
-    applyStyles([{id: 'font-size', value: '17px'}], element);
+    applyStyles([{id: 'font-size', value: '16px'}], element);
     objectsToLisen.push(element);
   });
 
@@ -532,6 +535,7 @@ function designFooterTop (){
   const arraysOfText = [textArray1, textArray2, textArray3, textArray4];
 
   //For every array we create a card. Returned from footerCard is the objects in the card that we should implement hover functionality on. These are pushed into our collection.
+  //Each array consists of the text to be put into text elements on each card
   arraysOfText.forEach(textArray => {
     objectsToLisen.push(...footerCard(textArray, footerCardContainer, objectsToLisen));
   });
@@ -545,11 +549,6 @@ function designFooterTop (){
   ];
   applyStyles(styles, footerCardContainer);
   
-  console.log(footerCardContainer);
-  
-  
-
-
   return [objectsToLisen, footerCardContainer];
 }
 function designFooterBottom(){
