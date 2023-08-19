@@ -438,6 +438,21 @@ addChildElement(document.body, mainContent);
   return objectsToLisen;
 }
 
+function designFooter(){
+  const objectsToLisen = [];
+  objectsToLisen.push(...designFooterTop());
+  objectsToLisen.push(...designFooterBottom());
+  return objectsToLisen;
+}
+
+function designFooterTop (){
+  const objectsToLisen = [];
+  return objectsToLisen;
+}
+function designFooterBottom(){
+  const objectsToLisen = [];
+  return objectsToLisen;
+}
 //Defining array of objects to implement Eventlistener for hover functionality
 //The design functions should return array of objects that should have a hover function
 //Will add elements into this array from each section of the page.
@@ -448,6 +463,7 @@ applyStyles([{id: 'padding-bottom', value: '50px'},
  const hoverObjects = designHeader();
  
  hoverObjects.push(...designMainContent());
+ hoverObjects.push(...designFooter());
  
  
 
