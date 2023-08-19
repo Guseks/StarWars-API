@@ -441,7 +441,11 @@ addChildElement(document.body, mainContent);
 function designFooter(){
   const objectsToLisen = [];
   const footer = document.createElement('footer');
+
+  //The design functions should return array consisting of objects to implement hover on, second element should be the container for the section. 
+  //Then we can add the section to the footer element itself.
   const footerCards = designFooterTop();
+  const footerBottom = designFooterBottom();
   addChildElement(footer, footerCards[1]);
 
   //Styling footer element
@@ -456,12 +460,16 @@ function designFooter(){
   ];
   applyStyles(styles, footer);
   addChildElement(document.body, footer);
+
+  //First element of the returned array is the objects we want to have hover function on
   objectsToLisen.push(...footerCards[0]);
   objectsToLisen.push(...designFooterBottom());
+
+  //Array is returned for the main loop to implement the eventListener
   return objectsToLisen;
 }
 
-function footerCard(textArray, footerCardContainer){
+function footerCard(textArray, footerCardContainer, objectsToLisen){
   const footerCard = document.createElement('div');
   const fixedLinksArray1 = textArray.map((element, index) =>{
     if(index === 0) {
@@ -484,21 +492,25 @@ function footerCard(textArray, footerCardContainer){
     {id: 'height', value: '450px;'},
     {id: 'width', value: '300px'},
     {id: 'display', value: 'flex'},
-    {id: 'lex-direction', value: 'column'},
+    {id: 'flex-direction', value: 'column'},
     {id: 'row-gap', value: '15px'}
   ];
   applyStyles(styles, footerCard);
   //headline
-  applyStyles([{id: 'font-size', value: '16px'}], headline1);
+  applyStyles([{id: 'font-size', value: '18px'}], headline1);
 
   //text elements
-
+  fixedLinksArray1.forEach(element =>{
+    applyStyles([{id: 'font-size', value: '17px'}], element);
+    objectsToLisen.push(element);
+  });
 
   addChildElement(footerCard, headline1);
   fixedLinksArray1.forEach(element =>{
     addChildElement(footerCard, element);
   });
   addChildElement(footerCardContainer, footerCard);
+  return objectsToLisen;
 }
 function designFooterTop (){
   const objectsToLisen = [];
@@ -513,11 +525,15 @@ function designFooterTop (){
   const text3 = `Community,Community Overview,Meet the 1 in 8,HACER® Scholarships for Hispanic Students,Ronald McDonald House Charities,McDonald’s Asian Pacific American,McDonald’s International,`
                 + `Black and Positively Golden,McDonald’s LGBTQ+`;
   const textArray3 = text3.split(',');
+  const text4 = 'Contact Us,Contact Us Overview,Gift Card FAQs,Donations,Employment,Customer Feedback,Frequently Asked Questions';
+  const textArray4 = text4.split(',');
   
 
-  const arraysOfText = [textArray1, textArray2, textArray3];
+  const arraysOfText = [textArray1, textArray2, textArray3, textArray4];
+
+  //For every array we create a card. Returned from footerCard is the objects in the card that we should implement hover functionality on. These are pushed into our collection.
   arraysOfText.forEach(textArray => {
-    footerCard(textArray, footerCardContainer);
+    objectsToLisen.push(...footerCard(textArray, footerCardContainer, objectsToLisen));
   });
   
   // ---- Styling footerCardContainer
