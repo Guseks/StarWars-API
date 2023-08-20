@@ -447,7 +447,10 @@ function designFooter(){
   const footerCards = designFooterTop();
   const footerBottom = designFooterBottom();
   addChildElement(footer, footerCards[1]);
-  //addChildElement(footer, footerBottom[1]);
+
+  //Two containers in the bottom part
+  addChildElement(footer, footerBottom[1]);
+  //addChildElement(footer, footerBottom[2]);
 
   //Styling footer element
   let styles = [
@@ -487,7 +490,8 @@ function footerCard(textArray, footerCardContainer, objectsToLisen){
     }
     
   });
-  const headline1 =fixedLinksArray1.reverse().pop();
+  console.log(fixedLinksArray1);
+  const headline1 =fixedLinksArray1.splice(0, 1)[0];
 
   // ---- styling -------
   //card
@@ -545,7 +549,7 @@ function designFooterTop (){
     {id: 'display', value: 'flex'},
     {id: 'column-gap', value: '80px'},
     {id: 'justify-content', value: 'center'},
-    {id: 'padding-bottom', value: '50px'}
+    {id: 'padding-bottom', value: '80px'}
   ];
   applyStyles(styles, footerCardContainer);
   
@@ -553,7 +557,75 @@ function designFooterTop (){
 }
 function designFooterBottom(){
   const objectsToLisen = [];
-  return objectsToLisen;
+
+
+  //First section
+  const buttonsIconsContainer = document.createElement('div');
+  //styling Container
+  let styles = [
+    {id: 'height', value: '100px'},
+    {id: 'width', value: '100%'},
+    {id: 'display', value: 'flex'},
+    {id: 'position', value: 'relative'},
+    {id: 'border-bottom', value: '1px solid rgb(200, 200, 200)'}    
+    //{id: 'padding-bottom', value: '0px'}
+  ];
+  applyStyles(styles, buttonsIconsContainer);
+  const iconsContainer = document.createElement('div');
+  const icons = ["Images/facebook.png", 'Images/twitter.png', 'Images/youtube.png', 'Images/instagram.png', 'Images/tumblr.png', 'Images/spotify.png'];
+
+  //Creating and styling the icons. Finishing with adding them to container
+  icons.forEach(element =>{
+    const icon = document.createElement('img');
+    icon.src = element;
+    
+    applyStyles([{id: 'height', value: '32px'},
+                {id: 'width', value: '32px'},
+                {id: 'margin-right', value: '16px'}], icon);
+    addChildElement(iconsContainer, icon);
+                
+  });
+
+  
+
+  //Styling the iconsContainer
+  applyStyles([{id: 'width', value: '300px'}, {id: 'display', value: 'flex'}], iconsContainer);
+  addChildElement(buttonsIconsContainer, iconsContainer);
+
+  const buttonContainer = document.createElement('div');
+  //Styling the buttonContainer
+  styles = [
+    {id: 'width', value: '400px'},
+    {id: 'height', value: '50px'},
+    {id: 'position', value: 'absolute'},
+    {id: 'right', value: '0'},
+    {id: 'display', value: 'flex'},
+    {id: 'column-gap', value: '30px'}
+  ];
+  applyStyles(styles, buttonContainer);
+  //styling for each image/button
+  styles = [
+    {id: 'width', value: '150px'},
+    {id: 'height', value: '36x'},
+    {id: 'border-radius', value: '6px'},
+    {id: 'padding', value: '2px'},
+    {id: 'background-color', value: 'black'}
+  ];
+
+  ['Images/appstore.png', 'Images/googleplay.png'].forEach(element =>{
+    const image = document.createElement('img');
+    image.src = element;
+    applyStyles(styles, image);
+    addChildElement(buttonContainer, image);
+    
+
+  });
+  
+  addChildElement(buttonsIconsContainer, buttonContainer);
+  //Bottom Section
+  const footerBottom = document.createElement('div');
+  
+  return [objectsToLisen, buttonsIconsContainer, footerBottom];
 }
 //Defining array of objects to implement Eventlistener for hover functionality
 //The design functions should return array of objects that should have a hover function
