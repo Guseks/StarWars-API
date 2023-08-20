@@ -450,7 +450,7 @@ function designFooter(){
 
   //Two containers in the bottom part
   addChildElement(footer, footerBottom[1]);
-  //addChildElement(footer, footerBottom[2]);
+  addChildElement(footer, footerBottom[2]);
 
   //Styling footer element
   let styles = [
@@ -467,7 +467,7 @@ function designFooter(){
 
   //First element of the returned array is the objects we want to have hover function on
   objectsToLisen.push(...footerCards[0]);
-  //objectsToLisen.push(...footerBottom[0]);
+  objectsToLisen.push(...footerBottom[0]);
 
   //Array is returned for the main loop to implement the eventListener
   return objectsToLisen;
@@ -490,7 +490,7 @@ function footerCard(textArray, footerCardContainer, objectsToLisen){
     }
     
   });
-  console.log(fixedLinksArray1);
+  
   const headline1 =fixedLinksArray1.splice(0, 1)[0];
 
   // ---- styling -------
@@ -583,6 +583,7 @@ function designFooterBottom(){
                 {id: 'width', value: '32px'},
                 {id: 'margin-right', value: '16px'}], icon);
     addChildElement(iconsContainer, icon);
+    objectsToLisen.push(icon);
                 
   });
 
@@ -617,14 +618,78 @@ function designFooterBottom(){
     image.src = element;
     applyStyles(styles, image);
     addChildElement(buttonContainer, image);
+    objectsToLisen.push(image);
     
 
   });
   
   addChildElement(buttonsIconsContainer, buttonContainer);
-  //Bottom Section
-  const footerBottom = document.createElement('div');
   
+  
+  // ------------ Bottom Section --------------------
+
+
+  const footerBottom = document.createElement('div');
+  //Applying styles to footerBottom
+  applyStyles([{id: 'margin-top', value: '60px'}, {id: 'display', value: 'flex'}], footerBottom);
+
+  // ----- Link section
+
+  const footerBottomLinks = document.createElement('div');
+  // Styling for footerBottomLinks container
+  styles = [
+    {id: 'width', value: '620px'},
+    {id: 'padding-right', value: '100px'},
+    {id: 'height', value: '100px'},
+    {id: 'display', value: 'flex'},
+    {id: 'flex-wrap', value: 'wrap'},
+    {id: 'column-gap', value: '40px'}
+  ];
+  applyStyles(styles, footerBottomLinks);
+  const elementTexts = 'Privacy (Updated),California Privacy Notice,Terms & Conditions,Accessibility,Do Not Sell or Share My Personal Information,Cookies Settings';
+  const elementTextsArray = elementTexts.split(',');
+
+  elementTextsArray.forEach(element =>{
+    const spanElement = document.createElement('span');
+    spanElement.textContent = element;
+    applyStyles([{id: 'font-size', value: '15px'}, {id: 'padding', value: '0'}], spanElement);
+    addChildElement(footerBottomLinks, spanElement);
+    objectsToLisen.push(spanElement);
+  });
+  
+  addChildElement(footerBottom, footerBottomLinks);
+
+  // -------------- Copyright Section -----------------
+  const copyright = document.createElement('div');
+  
+  //Styling container
+  styles = [
+    {id: 'height', value: '100px'},
+    {id: 'width', value: '350px'},
+    {id: 'display', value: 'flex'},
+    {id: 'font-size',value: '15px'}
+  ];
+  applyStyles(styles, copyright);
+
+  const copyrightLogo = document.createElement('img');
+  copyrightLogo.src = 'Images/arches-logo_108x108.jpg';
+  copyrightLogo.style.height = '30px';
+
+  const copyrightText = document.createElement('span');
+  
+  
+  copyrightText.innerHTML = `&copy; 2017 - 2023 McDonald's. All Rights <br>Reserved`;
+  copyrightText.style.paddingLeft = '50px';
+
+  
+  
+
+  addChildElement(copyright, copyrightLogo);
+  addChildElement(copyright, copyrightText);
+
+  addChildElement(footerBottom, copyright);
+  
+
   return [objectsToLisen, buttonsIconsContainer, footerBottom];
 }
 //Defining array of objects to implement Eventlistener for hover functionality
