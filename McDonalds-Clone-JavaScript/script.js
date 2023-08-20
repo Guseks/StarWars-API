@@ -27,13 +27,7 @@ function designHeader (){
     
   ];
   applyStyles(styles, header);
- /* 
-  header.style.height = '140px';
-  header.style.margin = '-10px';
-  header.style.display = 'flex';
-  header.style.position = 'relative';
-  header.style.boxShadow = 'rgba(0, 0, 0, 0.04) 0px 1px 8px 0px, rgba(0, 0, 0, 0.04) 0px 1px 5px 0px';
-  */
+ 
 
   const navContainer = document.createElement('div');
   navContainer.id = 'nav-container';
