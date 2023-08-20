@@ -596,8 +596,8 @@ function designFooterBottom(){
   const buttonContainer = document.createElement('div');
   //Styling the buttonContainer
   styles = [
-    {id: 'width', value: '400px'},
-    {id: 'height', value: '50px'},
+    {id: 'width', value: '330px'},
+    {id: 'height', value: '42px'},
     {id: 'position', value: 'absolute'},
     {id: 'right', value: '0'},
     {id: 'display', value: 'flex'},
@@ -606,8 +606,7 @@ function designFooterBottom(){
   applyStyles(styles, buttonContainer);
   //styling for each image/button
   styles = [
-    {id: 'width', value: '150px'},
-    {id: 'height', value: '36x'},
+    {id: 'width', value: '130px'},
     {id: 'border-radius', value: '6px'},
     {id: 'padding', value: '2px'},
     {id: 'background-color', value: 'black'}
@@ -631,7 +630,7 @@ function designFooterBottom(){
 
   const footerBottom = document.createElement('div');
   //Applying styles to footerBottom
-  applyStyles([{id: 'margin-top', value: '60px'}, {id: 'display', value: 'flex'}], footerBottom);
+  applyStyles([{id: 'margin-top', value: '60px'}, {id: 'display', value: 'flex'}, {id: 'position', value: 'relative'}], footerBottom);
 
   // ----- Link section
 
@@ -665,9 +664,11 @@ function designFooterBottom(){
   //Styling container
   styles = [
     {id: 'height', value: '100px'},
-    {id: 'width', value: '350px'},
+    {id: 'width', value: '315px'},
     {id: 'display', value: 'flex'},
-    {id: 'font-size',value: '15px'}
+    {id: 'font-size',value: '15px'},
+    {id: 'position', value: 'absolute'},
+    {id: 'right', value: '0'}
   ];
   applyStyles(styles, copyright);
 
