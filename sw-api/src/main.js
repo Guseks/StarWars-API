@@ -1,5 +1,6 @@
 const app = require('./app');
 const api = require('./api');
+const { read } = require('fs');
 const readline = require('readline').createInterface({ input: process.stdin, output: process.stdout });
 
 let quit = false;
@@ -10,60 +11,94 @@ function launchProgram(){
 }
 
 
-function menu(){
-  if(!quit && !choiceMade){
-    
-    console.log('\nWelcome to swapi (CLI version)\n');
-    console.log('What do you want to do?');
-    console.log("1: Add a character");
-    console.log("2: Print all current characters in collection");
-    console.log("3: Quit Program");
-
-    console.log('Make your choice (Options 1-3): ');
-    readline.prompt();
-    
-  }
-  //Only run menuHandler when a choice has been made
-  if(choiceMade){
-    menuHandler(userChoice);
-  }
-  
-    
+function isValidChoice(choice){
+  return (parseInt(choice) < 4) && (parseInt(choice) > 0);
 }
 
-//Listener for user input, called when the user has pressed "Enter"
-readline.on('line', (input) =>{
+async function menu(){
   
-  if((parseInt(input) < 4) && (parseInt(input) > 0)){
-    userChoice = input;
-    choiceMade = true;
-    menu();   
+  let choice = "";  
+  console.log('\nWelcome to swapi (CLI version)\n');
+  console.log('What do you want to do?');
+  console.log("1: Add a character");
+  console.log("2: Print all current characters in collection");
+  console.log("3: Quit Program");
+
+  console.log('Make your choice (Options 1-3): ');
+  readline.prompt();
+  choice = await getUserInput()
+  
+  
+  if(isValidChoice(choice)){
+    
+    await menuHandler(choice);
+    
+      
   }
   else {
     console.log("\nInvalid choice, try again!");
-    console.log("\Returning to the menu....");
+    console.log("Returning to the menu....");
     console.log("____________________________________________");
-    
-    
-    menu();
-  }
+    //await menu();
   
-});
+  }
+  if(!quit)  await menu(); 
+  
+}
 
 
-function menuHandler(choice) {
+
+function getUserInput(){
+  return new Promise(resolve =>{
+    readline.once('line', input => {
+      resolve(input);
+    })
+  });
+}
+
+
+async function menuHandler(choice) {
   switch (choice) {
     case '1':
-      //Code to add character to collection
-      //Call function in app.js
-      console.log(`Performing option ${choice}`);
-
+      
+      console.log("\nWhich character do you want to add?");
+      let charName = await getUserInput();
+      readline.prompt();
+      console.log(charName);
+      
+      while(charName ===""){
+        console.log("Invalid character name. Please try again.");
+        console.log("\nWhich character do you want to add?");
+        charName = await getUserInput(); // Await again within the loop
+        readline.prompt();
+      }
+      console.log(`\nTrying to add character with name ${charName}`);
+      // Call function in app.js to add character
+      try {
+        let successful = false;
+        while(!successful){
+          successful = await app.addCharacter(charName);
+          if(!successful) {
+            readline.prompt();
+            charName = await getUserInput();
+            console.log(`\nTrying to add character with name ${charName}`);
+          }
+          else console.log("Character added successfully!");
+        }
+        
+        
+      }
+      catch (error){
+        console.log(error.message);
+      }
+      
       break;
-    
+      
     case '2':
       // Code to print all current characters in collection
       //call function in app.js
-      console.log(`Performing option ${choice}`);
+      app.printCharacters();
+      
       break;
     
     case '3':
@@ -75,12 +110,14 @@ function menuHandler(choice) {
 
   if(quit) return;
   
-  sleep(2000).then(() => { 
-    choiceMade = false;
-    console.log("\nReturning to the menu....");
-    console.log("____________________________________________");
-    sleep(2000).then(()=>{menu();});    
-  });
+  
+  console.log("\nReturning to the menu....");
+  console.log("____________________________________________");
+  await sleep(2000)
+  //menu();  
+    
+    
+  
   
 }
 
