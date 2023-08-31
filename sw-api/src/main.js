@@ -72,26 +72,28 @@ async function menuHandler(choice) {
         charName = await getUserInput(); // Await again within the loop
         readline.prompt();
       }
-      console.log(`\nTrying to add character with name ${charName}`);
+      
       // Call function in app.js to add character
       try {
-        let successful = false;
-        while(!successful){
-          successful = await app.addCharacter(charName);
-          if(!successful) {
-            readline.prompt();
-            charName = await getUserInput();
-            console.log(`\nTrying to add character with name ${charName}`);
-          }
-          else console.log("Character added successfully!");
+        
+      /*while(!successful){
+        successful = await app.addCharacter(charName);
+        if(!successful) {
+          readline.prompt();
+          charName = await getUserInput();
+          console.log(`\nTrying to add character with name ${charName}`);
+        }*/
+        console.log(`\nTrying to add character with name ${charName}`);
+        let successful = await app.addCharacter(charName);
+        if(!successful) {
+          console.log('Name of character is incorrect. Unable to add the character to the collection');
         }
-        
-        
+        else console.log("Character added successfully!");  
       }
+        
       catch (error){
         console.log(error.message);
-      }
-      
+      }       
       break;
       
     case '2':
