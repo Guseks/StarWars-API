@@ -119,12 +119,32 @@ async function menuHandler(choice) {
     
     case '2':
       //Code to delete a character in collection if found
-      console.log(`Which character do you want to remove from the collection?`);
+      app.printCharacters();
+      console.log(`\nWhich character do you want to remove from the collection? (Full name required, back to return to menu)`);
+
       charName = await getUserInput();
       readline.prompt();
+      let nameProvided = false;
+      while(!nameProvided){
+        if(charName === 'back'){
+          break;
+        }
+        
+        else if(charName !== ""){
+          app.deleteCharacter(charName);
+          nameProvided = true;
+        }
+        
+        
+        else {
+          charName = await getUserInput();
+          readline.prompt();
+        }
+        
+      }
       
-      if(charName !=="")
-      app.deleteCharacter(charName);
+        
+      
       break;
 
     case 3:
