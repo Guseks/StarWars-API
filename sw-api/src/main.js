@@ -84,9 +84,36 @@ async function menuHandler(choice) {
           console.log(`\nTrying to add character with name ${charName}`);
         }*/
         console.log(`\nTrying to add character with name ${charName}`);
-        let successful = await app.addCharacter(charName);
-        if(!successful) {
+        let result = await app.addCharacter(charName);
+        if(!result[0]) {
           console.log('Name of character is incorrect. Unable to add the character to the collection');
+        }
+        else if (result[1].length > 1){
+          console.log(`Found more than one character matching ${charName}`);
+          console.log(`Characters Found: `);
+          result[1].forEach(element => {
+            console.log(element.name);
+          });
+          console.log("\nWhich one did you want to add? (Write the entire name)");
+                    
+          let characterFound = false;
+          while(!characterFound){
+            
+            charName = await getUserInput();
+            readline.prompt();
+            
+            for (character of result[1]){
+              if(character.name === charName){
+                app.chooseCharacterToAdd(character);
+                characterFound = true;
+                console.log(`Adding ${charName} to list of characters`);
+              }
+            }
+            if(!characterFound){
+              console.log(`Unable to find character with name ${charName}. Try again`);
+            }
+          }
+          
         }
         else console.log("Character added successfully!");  
       }

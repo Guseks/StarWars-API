@@ -19,7 +19,7 @@ async function getCharacter (name){
     const response = await axios.get(`https://swapi.dev/api/people/?search=${name}`);
     //console.log(response.data.name);
     
-    return response.data.results[0];
+    return response.data.results;
   }
   catch (error) {
     console.log(error.message);
