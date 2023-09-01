@@ -12,7 +12,7 @@ function launchProgram(){
 
 
 function isValidChoice(choice){
-  return (parseInt(choice) < 4) && (parseInt(choice) > 0);
+  return (parseInt(choice) < 6) && (parseInt(choice) > 0);
 }
 
 async function menu(){
@@ -21,10 +21,12 @@ async function menu(){
   console.log('\nWelcome to swapi (CLI version)\n');
   console.log('What do you want to do?');
   console.log("1: Add a character");
-  console.log("2: Print all current characters in collection");
-  console.log("3: Quit Program");
+  console.log("2: Remove a character");
+  console.log("3: Swap position of two characters in collection");
+  console.log("4: Print all current characters in collection");
+  console.log("5: Quit Program");
 
-  console.log('Make your choice (Options 1-3): ');
+  console.log('Make your choice (Options 1-5): ');
   readline.prompt();
   choice = await getUserInput()
   
@@ -39,7 +41,6 @@ async function menu(){
     console.log("\nInvalid choice, try again!");
     console.log("Returning to the menu....");
     console.log("____________________________________________");
-    //await menu();
   
   }
   if(!quit)  await menu(); 
@@ -58,31 +59,24 @@ function getUserInput(){
 
 
 async function menuHandler(choice) {
+  let charName = "";
   switch (choice) {
     case '1':
       
       console.log("\nWhich character do you want to add?");
-      let charName = await getUserInput();
+      charName = await getUserInput();
       readline.prompt();
       console.log(charName);
       
       while(charName ===""){
         console.log("Invalid character name. Please try again.");
         console.log("\nWhich character do you want to add?");
-        charName = await getUserInput(); // Await again within the loop
+        charName = await getUserInput(); 
         readline.prompt();
       }
       
-      // Call function in app.js to add character
-      try {
-        
-      /*while(!successful){
-        successful = await app.addCharacter(charName);
-        if(!successful) {
-          readline.prompt();
-          charName = await getUserInput();
-          console.log(`\nTrying to add character with name ${charName}`);
-        }*/
+      
+      try {            
         console.log(`\nTrying to add character with name ${charName}`);
         let result = await app.addCharacter(charName);
         if(!result[0]) {
@@ -122,15 +116,29 @@ async function menuHandler(choice) {
         console.log(error.message);
       }       
       break;
-      
+    
     case '2':
+      //Code to delete a character in collection if found
+      console.log(`Which character do you want to remove from the collection?`);
+      charName = await getUserInput();
+      readline.prompt();
+      
+      if(charName !=="")
+      app.deleteCharacter(charName);
+      break;
+
+    case 3:
+      //Code to swap position of two characters
+      
+      break;
+    case '4':
       // Code to print all current characters in collection
       //call function in app.js
       app.printCharacters();
       
       break;
     
-    case '3':
+    case '5':
       console.log("\nExiting Program, Thanks for using my program!\n");
       readline.close();
       quit = true;
@@ -142,7 +150,7 @@ async function menuHandler(choice) {
   
   console.log("\nReturning to the menu....");
   console.log("____________________________________________");
-  await sleep(2000)
+  await sleep(1000)
   //menu();  
     
     
