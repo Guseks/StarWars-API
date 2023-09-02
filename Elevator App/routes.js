@@ -6,7 +6,6 @@ const elevatorManager = new ElevatorManager();
 
 router.get('/elevator/status', (req, res) =>{
   const elevatorsStatus = elevatorManager.getAllStatus();
-  //console.log(elevatorsStatus);
   res.send(elevatorsStatus);
   
   res.end();
@@ -19,6 +18,11 @@ router.put('/elevator/call', (req, res)=>{
   console.log(floor);
   elevatorManager.callElevator(floor);
   res.send(`Call for elevator to floor ${floor} recieved `);
+  res.end();
+});
+
+router.get('/elevator/', (req, res)=>{
+  res.send(elevatorManager.elevators);
   res.end();
 });
 

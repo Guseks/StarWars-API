@@ -11,40 +11,45 @@ class ElevatorManager {
   }
   
   callElevator(floor) {
-    for(let elevator of this.elevators){
-      if(elevator.currentFloor === floor){
-        console.log(`Elevator ${elevator.id} already at floor ${floor}`);
-        return;
-      }
-    }
     let closestElevator;
-    let closestDistance;
+    let closestDistance = Infinity;
+    let elevatorCalled = false;
+    
+    
     for(let elevator of this.elevators){
       
-      let distance = Math.abs(elevator.currentFloor - floor);
-      
-      if(distance === 1){
-        closestElevator = elevator;
-        break;
-      }
-      if(distance < closestDistance){
-        closestDistance = distance;
-        closestElevator = elevator;
+      if(elevator.isAvailable()){
+        elevatorCalled = true;
+        let distance = Math.abs(elevator.currentFloor - floor);
+
+        if(distance < closestDistance){
+          closestDistance = distance;
+          closestElevator = elevator;
+        }
+        if((elevator.currentFloor === floor) && elevator.isAvailable()){
+          console.log(`Elevator ${elevator.id} already at floor ${floor}`);
+          
+          return true;
+        }
       }
     }
-    //console.log(closestElevator);
-    if(closestElevator.currentFloor < floor){
-      this.updateElevatorStatus(closestElevator.id, 'moving_up', floor);
-      closestElevator.move();
-      
+    if(!elevatorCalled){
+      this.elevators.forEach(elevator =>{
+        let distance = Math.abs(elevator.destinationFloor - floor);
+        if(distance < closestDistance){
+          closestElevator = elevator;
+          closestDistance = distance;
+          
+        }
+      });
+      closestElevator.queueFloor(floor);
+      console.log(`Elevator ${closestElevator.id} queued for floor ${floor}`);
     }
     else {
-      this.updateElevatorStatus(closestElevator.id, 'moving_down', floor);
-      this.printElevators();
-      closestElevator.move();
-      
+      closestElevator.queueFloor(floor);
+      closestElevator.moveToNextFloor();
     }
-  
+    
     
   }
 

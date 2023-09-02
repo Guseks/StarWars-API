@@ -4,6 +4,7 @@ class Elevator {
     this.currentFloor = 1;
     this.status = 'idle'; 
     this.destinationFloor = null; 
+    this.queue = [];
   } 
 
   // Methods to update elevator status and destination floor
@@ -26,14 +27,40 @@ class Elevator {
     return this.status === 'idle';
   }
 
+
+  queueFloor(floor){
+    this.queue.push(floor);
+  }
+
+  getNextQueuedFloor(){
+    return this.queue.shift();
+  }
   //Simulate the movement of elevator, using a fixed delay.
   //Delay is the time it takes for the elevator to move
-  move (){
+  moveToNextFloor (){
+    const nextFloor = this.getNextQueuedFloor();
+    if(nextFloor !==undefined){
+      if(nextFloor < this.currentFloor){
+        this.updateStatus('moving_down');
+        this.updateDestination(nextFloor);
+        this.move();
+      }
+      else if(nextFloor > this.currentFloor){
+        this.updateStatus('moving_up');
+        this.updateDestination(nextFloor);
+        this.move();
+      }
+    }
+    
+    
+  }
+  move(){
     setTimeout(()=>{
       this.currentFloor = this.destinationFloor;
       this.status = 'idle';
       this.destinationFloor = null;
-    }, 20000);
+      this.moveToNextFloor();
+    }, 30000);
   }
 
 }
