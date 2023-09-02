@@ -1,11 +1,8 @@
 const app = require('./app');
-const api = require('./api');
-const { read } = require('fs');
 const readline = require('readline').createInterface({ input: process.stdin, output: process.stdout });
 
 let quit = false;
-let userChoice = "";
-let choiceMade = false;
+
 function launchProgram(){
   menu();
 }
@@ -17,38 +14,37 @@ function isValidChoice(choice){
 
 async function menu(){
   
-  let choice = "";  
-  console.log('\nWelcome to swapi (CLI version)\n');
-  console.log('What do you want to do?');
-  console.log("1: Add a character");
-  console.log("2: Remove a character");
-  console.log("3: Swap position of two characters in collection");
-  console.log("4: Print all current characters in collection");
-  console.log("5: Quit Program");
+  let choice = "";
+  while(!quit){
+    console.log('\nWelcome to swapi (CLI version)\n');
+    console.log('What do you want to do?');
+    console.log("1: Add a character");
+    console.log("2: Remove a character");
+    console.log("3: Swap position of two characters in collection");
+    console.log("4: Print all current characters in collection");
+    console.log("5: Quit Program");
 
-  console.log('Make your choice (Options 1-5): ');
-  readline.prompt();
-  choice = await getUserInput()
-  
-  
-  if(isValidChoice(choice)){
+    console.log('Make your choice (Options 1-5): ');
+    readline.prompt();
+    choice = await getUserInput()
     
-    await menuHandler(choice);
     
-      
-  }
-  else {
-    console.log("\nInvalid choice, try again!");
-    console.log("Returning to the menu....");
-    console.log("____________________________________________");
-  
-  }
-  if(!quit)  await menu(); 
+    if(isValidChoice(choice)){
+      await menuHandler(choice);
+    }
+    else {
+      console.log("\nInvalid choice, try again!");
+      console.log("Returning to the menu....");
+      await sleep(1000);
+      console.log("____________________________________________");
+    
+    }
+  }  
   
 }
 
 
-
+//Handles user input, makes sure we wait until user has provided input -> promise is resolved. 
 function getUserInput(){
   return new Promise(resolve =>{
     readline.once('line', input => {
@@ -62,7 +58,7 @@ async function menuHandler(choice) {
   let charName = "";
   switch (choice) {
     case '1':
-      
+      //Add a character
       console.log("\nWhich character do you want to add?");
       charName = await getUserInput();
       readline.prompt();
@@ -147,13 +143,23 @@ async function menuHandler(choice) {
       
       break;
 
-    case 3:
+    case '3':
       //Code to swap position of two characters
+      console.log("Which characters do you want to swap position of? (Separate names with ,)");
+      app.printCharacters();
       
+      const names = await getUserInput();
+      while(names ===""){
+        readline.prompt();
+      }
+      const name1 = names.split(",")[0].trim();
+      const name2 = names.split(",")[1].trim();
+      
+      app.swapCharacters(name1, name2);
+
       break;
     case '4':
       // Code to print all current characters in collection
-      //call function in app.js
       app.printCharacters();
       
       break;
@@ -171,9 +177,6 @@ async function menuHandler(choice) {
   console.log("\nReturning to the menu....");
   console.log("____________________________________________");
   await sleep(1000)
-  //menu();  
-    
-    
   
   
 }
