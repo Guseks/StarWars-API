@@ -18,22 +18,43 @@ class ElevatorManager {
       }
     }
     let closestElevator;
+    let closestDistance;
     for(let elevator of this.elevators){
+      
       let distance = Math.abs(elevator.currentFloor - floor);
+      
+      if(distance === 1){
+        closestElevator = elevator;
+        break;
+      }
       if(distance < closestDistance){
+        closestDistance = distance;
         closestElevator = elevator;
       }
     }
+    //console.log(closestElevator);
     if(closestElevator.currentFloor < floor){
       this.updateElevatorStatus(closestElevator.id, 'moving_up', floor);
+      closestElevator.move();
+      
     }
     else {
       this.updateElevatorStatus(closestElevator.id, 'moving_down', floor);
+      this.printElevators();
+      closestElevator.move();
+      
     }
+  
     
   }
 
   updateElevatorStatus(elevatorId, status, destinationFloor){
+    this.elevators.forEach(elevator => {
+      if(elevator.id === elevatorId){
+        elevator.updateStatus(status);
+        elevator.updateDestination(destinationFloor);
+      }
+    })
 
   }
   getAllStatus(){
