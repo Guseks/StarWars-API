@@ -89,9 +89,10 @@ class Elevator {
         this.currentFloor++;
       } else if (this.currentFloor > this.destinationFloor) {
         this.currentFloor--;
-      } else {
+      } else  if(this.currentFloor === this.destinationFloor){
         // Destination reached
         
+        console.log(`Test: ${this.destinationFloor}`);
         this.status = 'idle';
         this.currentFloor = this.destinationFloor;
         this.destinationFloor = null;
@@ -101,14 +102,19 @@ class Elevator {
     }, timePerFloor);
   
     // Set a timeout to ensure the elevator eventually stops even if something goes wrong
-    setTimeout(() => {
-      if(this.status !== 'idle'){
+    
+    if(this.status !=='idle' && this.currentFloor === this.destinationFloor){
+      setTimeout(() => {
+      
         clearInterval(moveInterval);
         this.status = 'idle';
         this.destinationFloor = null;
         this.moveToNextFloor();
-      }      
-    }, totalTime);
+            
+      }, 3000);
+    }
+    
+    
   }
   
 
