@@ -44,6 +44,7 @@ class Elevator {
         this.updateStatus('moving_down');
         this.updateDestination(nextFloor);
         this.move();
+        
       }
       else if(nextFloor > this.currentFloor){
         this.updateStatus('moving_up');
@@ -54,14 +55,62 @@ class Elevator {
     
     
   }
+  /*
   move(){
+    let distance = Math.abs(this.destinationFloor-this.currentFloor);
+    
     setTimeout(()=>{
       this.currentFloor = this.destinationFloor;
       this.status = 'idle';
       this.destinationFloor = null;
       this.moveToNextFloor();
     }, 30000);
+    
+    
   }
+  */
+  move() {
+    
+    // Calculate the total distance between current floor and destination floor
+    const totalDistance = Math.abs(this.destinationFloor - this.currentFloor);
+  
+    // Define the time delay for moving one floor (adjust as needed)
+    const timePerFloor = 5000; // Assuming it takes 5 seconds to move one floor
+  
+    // Calculate the total time needed for the entire journey
+    const totalTime = totalDistance * timePerFloor;
+
+    // Flag to track if the elevator has become idle
+    //let isIdle = false;
+  
+    // Simulate elevator movement with time delay
+    const moveInterval = setInterval(() => {
+      if (this.currentFloor < this.destinationFloor) {
+        this.currentFloor++;
+      } else if (this.currentFloor > this.destinationFloor) {
+        this.currentFloor--;
+      } else {
+        // Destination reached
+        
+        this.status = 'idle';
+        this.currentFloor = this.destinationFloor;
+        this.destinationFloor = null;
+        clearInterval(moveInterval);
+        this.moveToNextFloor();
+      }
+    }, timePerFloor);
+  
+    // Set a timeout to ensure the elevator eventually stops even if something goes wrong
+    setTimeout(() => {
+      if(this.status !== 'idle'){
+        clearInterval(moveInterval);
+        this.status = 'idle';
+        this.destinationFloor = null;
+        this.moveToNextFloor();
+      }      
+    }, totalTime);
+  }
+  
 
 }
 
