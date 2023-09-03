@@ -16,8 +16,14 @@ router.put('/elevator/call', (req, res)=>{
   
   const floor = req.body.floor;
   console.log(floor);
-  elevatorManager.callElevator(floor);
-  res.send(`Call for elevator to floor ${floor} recieved `);
+  const elevatorAlreadyThere = elevatorManager.callElevator(floor);
+  if(elevatorAlreadyThere){
+    res.send('Elevator already at that floor');
+  }
+  else {
+    res.send(`Call for elevator to floor ${floor} recieved `);
+  }
+  
   res.end();
 });
 
