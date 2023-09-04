@@ -15,7 +15,7 @@ router.get('/elevator/status', (req, res) =>{
 router.put('/elevator/call', (req, res)=>{
   
   const floor = req.body.floor;
-  //console.log(floor);
+  
   const answer = elevatorManager.callElevator(floor);
   const elevatorAlreadyThere = answer[0];
   const elevatorCalled = answer[1].id;
@@ -26,7 +26,7 @@ router.put('/elevator/call', (req, res)=>{
   }
   else {
     res.send(`Call for elevator to floor ${floor} recieved. Elevator ${elevatorCalled}`);
-    //elevatorManager.printElevators();
+    
   }
   
   res.end();

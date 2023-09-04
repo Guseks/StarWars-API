@@ -5,6 +5,7 @@ class ElevatorManager {
   constructor() {
     this.elevators = [];
     this.minQueuedCalls = 2000;
+    
     //Constant to scale number of elevators connected to system
     const numberOfElevators = 3
     for(let i=1; i <= numberOfElevators; i++){
@@ -41,7 +42,7 @@ class ElevatorManager {
         if (totalDistance < closestDistance) {
           closestDistance = totalDistance;
           closestElevator = elevator;
-          //console.log(`Test: ${queuedCalls} `);
+         
           if(queuedCalls < this.minQueuedCalls){
             console.log(`Testing amount of calls. ${queuedCalls} vs ${this.minQueuedCalls} \n ____________`);
             this.minQueuedCalls = queuedCalls;
@@ -50,11 +51,11 @@ class ElevatorManager {
           
         }
       }
-      console.log(`minQueuedCalls is: ${this.minQueuedCalls}`);
+      //console.log(`minQueuedCalls is: ${this.minQueuedCalls}`);
      
-      this.printElevators();
+      //this.printElevators();
      
-      console.log(`closest elevator queue lenght: ${closestElevator.queue.length}`)
+      //console.log(`closest elevator queue lenght: ${closestElevator.queue.length}`)
       
       if (closestElevator.queue.length <= this.minQueuedCalls) {
         closestElevator.queueFloor(floor);
