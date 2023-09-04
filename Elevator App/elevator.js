@@ -7,11 +7,9 @@ class Elevator {
     this.queue = [];
   } 
 
-  // Methods to update elevator status and destination floor
+  // Methods to update elevator variables
   updateStatus(status) {
-  
-    this.status = status;
-    
+    this.status = status;    
   }
   updateDestination(destinationFloor){
     this.destinationFloor = destinationFloor;
@@ -22,12 +20,10 @@ class Elevator {
 
   // Method to check if the elevator is available
   isAvailable() {
-   
-    //return this.status === 'idle' || (this.status === 'moving_up' && this.destinationFloor > this.currentFloor) || (this.status === 'moving_down' && this.destinationFloor < this.currentFloor);
     return this.status === 'idle';
   }
 
-
+  //Queue a floor to move to if busy
   queueFloor(floor){
     this.queue.push(floor);
   }
@@ -35,8 +31,8 @@ class Elevator {
   getNextQueuedFloor(){
     return this.queue.shift();
   }
-  //Simulate the movement of elevator, using a fixed delay.
-  //Delay is the time it takes for the elevator to move
+  
+  //Make the next movement queued up
   moveToNextFloor (){
     const nextFloor = this.getNextQueuedFloor();
     if(nextFloor !==undefined){
@@ -55,20 +51,9 @@ class Elevator {
     
     
   }
-  /*
-  move(){
-    let distance = Math.abs(this.destinationFloor-this.currentFloor);
-    
-    setTimeout(()=>{
-      this.currentFloor = this.destinationFloor;
-      this.status = 'idle';
-      this.destinationFloor = null;
-      this.moveToNextFloor();
-    }, 30000);
-    
-    
-  }
-  */
+  
+  //Simulate the movement of elevator, using a fixed delay.
+  //Delay is the time it takes for the elevator to move one floor
   move() {
     
     // Calculate the total distance between current floor and destination floor
@@ -79,25 +64,33 @@ class Elevator {
   
     // Calculate the total time needed for the entire journey
     const totalTime = totalDistance * timePerFloor;
-
-    // Flag to track if the elevator has become idle
-    //let isIdle = false;
   
     // Simulate elevator movement with time delay
     const moveInterval = setInterval(() => {
+      
       if (this.currentFloor < this.destinationFloor) {
         this.currentFloor++;
-      } else if (this.currentFloor > this.destinationFloor) {
-        this.currentFloor--;
-      } else  if(this.currentFloor === this.destinationFloor){
-        // Destination reached
         
-        console.log(`Test: ${this.destinationFloor}`);
-        this.status = 'idle';
-        this.currentFloor = this.destinationFloor;
-        this.destinationFloor = null;
-        clearInterval(moveInterval);
-        this.moveToNextFloor();
+      } 
+      else if (this.currentFloor > this.destinationFloor) {
+        
+        if(this.currentFloor > 1){
+          this.currentFloor--;
+        }
+        else {
+          this.status = 'idle';
+          this.destinationFloor = null;
+          clearInterval(moveInterval);
+          this.moveToNextFloor();
+        }
+          
+      }
+      else {
+          this.status = 'idle';
+          this.currentFloor = this.destinationFloor;
+          this.destinationFloor = null;
+          clearInterval(moveInterval);
+          this.moveToNextFloor();
       }
     }, timePerFloor);
   
