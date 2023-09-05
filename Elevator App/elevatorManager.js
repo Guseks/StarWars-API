@@ -60,7 +60,7 @@ class ElevatorManager {
       if (closestElevator.queue.length <= this.minQueuedCalls) {
         closestElevator.queueFloor(floor);
         
-        console.log("\n Here \n")
+        //console.log("\n Here \n")
         console.log(`Elevator ${closestElevator.id} queued for floor ${floor}`);
         return [false, closestElevator];
       } else {

@@ -60,7 +60,7 @@ class Elevator {
     const totalDistance = Math.abs(this.destinationFloor - this.currentFloor);
   
     // Define the time delay for moving one floor (adjust as needed)
-    const timePerFloor = 5000; // Assuming it takes 5 seconds to move one floor
+    const timePerFloor = 10000; // Assuming it takes 5 seconds to move one floor
   
     // Calculate the total time needed for the entire journey
     const totalTime = totalDistance * timePerFloor;
