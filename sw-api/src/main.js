@@ -43,63 +43,40 @@ async function menu(){
   
 }
 
-
-//Handles user input, makes sure we wait until user has provided input -> promise is resolved. 
-function getUserInput(){
-  return new Promise(resolve =>{
-    readline.once('line', input => {
-      resolve(input);
-    })
-  });
-}
-
-
 async function menuHandler(choice) {
   let charName = "";
   switch (choice) {
     case '1':
       //Add a character
       console.log("\nWhich character do you want to add?");
-      charName = await getUserInput();
-      readline.prompt();
-      console.log(charName);
-      
-      while(charName ===""){
-        console.log("Invalid character name. Please try again.");
-        console.log("\nWhich character do you want to add?");
-        charName = await getUserInput(); 
-        readline.prompt();
-      }
-      
+      charName = await getNameOfCharacterToAdd();      
       
       try {            
         console.log(`\nTrying to add character with name ${charName}`);
         let result = await app.addCharacter(charName);
-        if(!result[0]) {
+        if(isEmpty(result)) {
           console.log('Name of character is incorrect. Unable to add the character to the collection');
         }
-        else if (result[1].length > 1){
+        else if (multipleCharactersFound(result)){
           console.log(`Found more than one character matching ${charName}`);
           console.log(`Characters Found: `);
-          result[1].forEach(element => {
-            console.log(element.name);
-          });
+          helpPrintCharacters(result);
           console.log("\nWhich one did you want to add? (Write the entire name)");
                     
-          let characterFound = false;
+          let characterAdded = false;
           while(!characterFound){
             
             charName = await getUserInput();
             readline.prompt();
             
-            for (character of result[1]){
-              if(character.name === charName){
+            for (character of result){
+              if(isCharacterFound(character.name, charName)){
                 app.chooseCharacterToAdd(character);
-                characterFound = true;
+                characterAdded = true;
                 console.log(`Adding ${charName} to list of characters`);
               }
             }
-            if(!characterFound){
+            if(!characterAdded){
               console.log(`Unable to find character with name ${charName}. Try again`);
             }
           }
@@ -144,20 +121,12 @@ async function menuHandler(choice) {
       break;
 
     case '3':
-      //Code to swap position of two characters
-      console.log("Which characters do you want to swap position of? (Separate names with ,)");
-      app.printCharacters();
-      
-      const names = await getUserInput();
-      while(names ===""){
-        readline.prompt();
-      }
-      const name1 = names.split(",")[0].trim();
-      const name2 = names.split(",")[1].trim();
-      
-      app.swapCharacters(name1, name2);
+      //Code to swap position of two characters    
+      const names = await getCharactersToSwap();
+      app.swapCharacters(names[0], names[1]);
 
       break;
+      
     case '4':
       // Code to print all current characters in collection
       app.printCharacters();
@@ -179,6 +148,79 @@ async function menuHandler(choice) {
   await sleep(1000)
   
   
+}
+
+// -------- Help Functions ----------
+
+async function getCharactersToSwap(){
+  let namesRecieved = false;
+  let names = "";
+  while(!namesRecieved){
+    console.log("Which characters do you want to swap position of? (Separate names with ,)");
+    app.printCharacters();
+    console.log("\n");
+    names = await getUserInput(); 
+    readline.prompt();
+    
+    if(names.includes(",")){
+      namesRecieved = true;
+    }
+    else {
+      console.log("\n Invalid input. Please try again.\n")
+    }
+
+  }
+  const splitNames = splitString(names);
+  return splitNames;
+
+}
+
+function splitString(inputString){
+  const splitInput = inputString.split(",");
+  splitInput[0] = splitInput[0].trim();
+  splitInput[1] = splitInput[1].trim();
+  return splitInput;
+}
+
+//Handles user input, makes sure we wait until user has provided input -> promise is resolved. 
+function getUserInput(){
+  return new Promise(resolve =>{
+    readline.once('line', input => {
+      resolve(input);
+    })
+  });
+}
+
+function isEmpty (array){
+  return array.length === 0;
+}
+
+function multipleCharactersFound(characters){
+  return characters.length > 1
+}
+
+function helpPrintCharacters(characters){
+  characters.forEach(char => {
+    console.log(char.name);
+  });
+}
+
+function isCharacterFound (name1, name2){
+  return name1 === name2;
+}
+
+async function getNameOfCharacterToAdd(){
+  let charName = await getUserInput();
+  readline.prompt();
+  
+  while(charName ===""){
+    console.log("Invalid character name. Please try again.");
+    console.log("\nWhich character do you want to add?");
+    charName = await getUserInput(); 
+    readline.prompt();
+  }
+
+  return charName
 }
 
 function sleep(ms) {

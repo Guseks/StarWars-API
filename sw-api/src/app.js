@@ -2,18 +2,16 @@ const api = require('./api.js');
 
 const characters = [];
 
+
 async function addCharacter(name){
   try {
     const result = await api.getCharacter(name);
-    if(result === undefined){
-      return [false, result];
-    }
-    else if (result.length > 1) {
-      return [true, result]
+    if(isEmpty(result)){
+      return result;
     }
     else {
       characters.push(result[0]);
-      return [true, result];
+      return result;
     }
     
   }
@@ -23,20 +21,25 @@ async function addCharacter(name){
   
 }
 
+
+
 function deleteCharacter(name){
-  let index = characters.findIndex((character) => character.name === name);
-  if(index !==-1){
-    characters.splice(index, 1);
-    console.log(`Character with name ${name} successfully removed`);
+  let index = getIndex(name);
+  if(indexNotFound(index)){
+    console.log(`Character with name ${name} does not exist in collection, unable to remove character.`);
   }
   else {
-    console.log(`Character with name ${name} does not exist in collection, unable to remove character.`);
+    characters.splice(index, 1);
+    console.log(`Character with name ${name} successfully removed`);
+    
   }
 }
 
+
+
 function swapCharacters(name1, name2){
-  let index1 = characters.findIndex((character)=> character.name === name1);
-  let index2 = characters.findIndex((character)=> character.name === name2);
+  let index1 = getIndex(name1);
+  let index2 = getIndex(name2);
   if(index1 === -1){
     console.log(`${name1} does not exist in the collection. Unable to swap.`);
     return
@@ -59,6 +62,16 @@ function swapCharacters(name1, name2){
 
 
 // --------------- Help Functions -----------------
+
+//returns -1 if character with charName is not found
+function getIndex(charName){
+  return characters.findIndex((character)=> character.name === charName);
+}
+
+function isEmpty (array){
+  return array.length === 0;
+}
+
 function chooseCharacterToAdd(character){
   characters.push(character);
 }
