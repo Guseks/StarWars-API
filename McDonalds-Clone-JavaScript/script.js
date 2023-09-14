@@ -1,252 +1,7 @@
-//Function to apply styles, input element to style and array of style objects
-//object Format: {id: 'property', value: 'desired value'}
-function applyStyles(array, element){
-  array.forEach(styleObj => {
-    element.style[styleObj.id] = styleObj.value;
-  });
-}
-
-function addChildElement(parentElement, element){
-  parentElement.appendChild(element);
-}
+// Creating array to store elements I want a listener for. 
+const hoverObjects = [];
   
 //Putting code to make each segment of the page into a function to make it easier to read
-
-function designHeader (){
-  
-  const header = document.createElement('div');
-  header.id ='header';
-
-  //Styles for the header element
-  let styles = [
-    {id: 'height', value: '140px'},
-    {id: 'margin', value: '-10px'},
-    {id: 'display', value: 'flex'},
-    {id: 'position', value: 'relative'},
-    {id: 'boxShadow', value: 'rgba(0, 0, 0, 0.04) 0px 1px 8px 0px, rgba(0, 0, 0, 0.04) 0px 1px 5px 0px'}
-    
-  ];
-  applyStyles(styles, header);
- 
-
-  const navContainer = document.createElement('div');
-  navContainer.id = 'nav-container';
-
-//Styles for navContainer
-
-  styles = [
-    {id: 'width:', value: '65%'},
-    {id: 'padding-right', value: '50px'},
-    {id: 'display', value: 'flex'},
-    {id: 'margin', value: 'auto'},
-    {id: 'height', value: '100px'}
-  ];
-
-  applyStyles(styles, navContainer);
-
-  //Adding all the elements to the navContainer
-  //Starting with the Logo
-
-  const mcDonaldsLogo = document.createElement('img');
-  mcDonaldsLogo.id = 'mcdonalds-logo';
-
-  styles = [
-    {id: 'height', value: '105px'},
-    {id: 'margin-left', value: '-45px'}
-  ];
-  applyStyles(styles, mcDonaldsLogo);
-  mcDonaldsLogo.src = 'Images/mcdonalds-logo.jpg';
-
-  addChildElement(navContainer, mcDonaldsLogo);
-
-  //Adding the top left section of elements
-  const topLeft = document.createElement('div');
-  topLeft.id ='top-left-section';
-  styles = [
-    {id: 'width', value: '400px'},
-    {id: 'height', value: '40px'},
-    {id: 'margin-left', value: '50px'},
-    {id: 'display', value: 'flex'},
-    {id: 'align-items', value: 'center'}
-  ];
-
-  applyStyles(styles, topLeft);
-  
-  const button1 = document.createElement('button');
-  const button2 = document.createElement('button');
-  const button3 = document.createElement('button');
-  button1.textContent = 'Language';
-  button2.textContent = 'Sign up for Email';
-  button3.textContent = 'Careers';
-  
-  
-  styles = [
-    {id: 'font-size', value: '13px'},
-    {id: 'text-align', value: 'center'},
-    {id: 'padding', value: '5px 10px'},
-    {id: 'margin-right', value: '15px'},
-    {id: 'border', value: 'none'},
-    {id: 'background-color', value: 'white'}
-  ]
-  applyStyles(styles, button1);
-  applyStyles(styles, button2);
-  applyStyles(styles, button3);
-
-  const downArrow = document.createElement('i');
-  styles = [
-    {id: 'border',value: 'solid #292929'},
-    {id: 'border-width', value: '0 1px 1px 0'},
-    {id: 'display', value: 'inline-block'},
-    {id: 'padding', value: '0.8mm'}, 
-    {id: 'margin-bottom', value: '2px'},
-    {id: 'margin-left', value: '8px'},
-    {id: 'transform', value: 'rotate(45deg)'},
-    {id: '-webkit-transform', value: 'rotate(45deg)'}
-  ];
-  applyStyles(styles, downArrow);
-  addChildElement(button1, downArrow);
-
-
-  addChildElement(topLeft, button1);
-  addChildElement(topLeft, button2);
-  addChildElement(topLeft, button3);
-  
-  //Top Right section
-  const topRight = document.createElement('div');
-  topRight.id = 'top-right-section';
-
-  styles = [
-    {id: 'width', value: '400px'},
-    {id: 'height', value: '40px'},
-    {id: 'margin-left', value: '130px'},
-    {id: 'display', value: 'flex'},
-    {id: 'align-items', value: 'center'}
-  ]
-  applyStyles(styles, topRight);
-
-  //search button
-  const search = document.createElement('div');
-  styles = [
-    {id: 'position', value: 'relative'},
-    {id: 'height', value: '25px'},
-    {id: 'display', value: 'flex'},
-    {id: 'align-items', value: 'center'},
-    {id: 'padding', value: '2px 5px'},
-    {id: 'margin-right', value: '20px'},
-    {id: 'font-size', value: '14px'}
-  ];
-  applyStyles(styles, search);
-  
-  const searchIcon = document.createElement('img');
-  searchIcon.src = 'Images/search-icon.png';
-  applyStyles([{id: 'margin-right', value: '5px'}], searchIcon);
-  addChildElement(search, searchIcon);
-  
-  const searchText = document.createElement('span');
-  searchText.textContent = 'Search';
-  applyStyles([{id: 'font-size', value: '14px'}], searchText);
-  addChildElement(search, searchText);
-  addChildElement(topRight, search);
-  
-  //Change your Location
-  const location = document.createElement('div');
-  const gpsIcon = document.createElement('img');
-  const locationText = document.createElement('span');
-  
-  
-  gpsIcon.src = 'Images/gps-icon.png';
-  addChildElement(location, gpsIcon);
-  locationText.textContent = 'Change your Location';
-  applyStyles([{id: 'margin-left', value: '3px'}], locationText);
-  addChildElement(location, locationText);
-
-  //styling location
-  styles = [
-    {id: 'height', value: '25px'},
-    {id: 'text-align', value: 'center'},
-    {id: 'display', value: 'flex'},
-    {id: 'align-items', value: 'center'},
-    {id: 'text-decoration', value: 'underline'},
-    {id: 'padding', value: '2px 5px'},
-    {id: 'margin-right', value: '20px'},
-    {id: 'font-size', value: '13px'},
-    {id: 'color', value: 'rgb(0, 107, 174)'}
-  ];
-
-  applyStyles(styles, location);
-  addChildElement(topRight, location);
-
-  //Order button
-  const orderButton = document.createElement('div');
-  orderButton.textContent = 'Order now';
-  styles = [
-    {id: 'width', value: '120px'},
-    {id: 'height', value: '40px'},
-    {id: 'background-color', value: 'rgb(255, 188, 13)'},
-    {id: 'font-size', value: '15px'},
-    {id: 'border', value: 'none'},
-    {id: 'border-radius', value: '4px'},
-    {id: 'display', value: 'flex'},
-    {id: 'align-items', value: 'center'},
-    {id: 'justify-content', value: 'center'}
-  ];
-
-  applyStyles(styles, orderButton);
-  addChildElement(topRight, orderButton);
-  addChildElement(navContainer, topLeft);
-  addChildElement(navContainer, topRight); 
-
-  const navbar = document.createElement('nav');
-  const navElements = ['Our Menu', 'Download App', `MyMcDonald's Rewards`, 'Exclusive Deals', 'About Our Food', 'Locate', 'Gift Cards'];
-
-  function createNavElements(navElements, navbar){
-    for(element of navElements){
-      const navElement = document.createElement('a');
-      navElement.textContent = element;
-      if(element === 'Our Menu'){
-        const arrow = document.createElement('i');
-        styles = [
-          {id: 'border',value: 'solid #292929'},
-          {id: 'border-width', value: '0 1px 1px 0'},
-          {id: 'display', value: 'inline-block'},
-          {id: 'padding', value: '0.8mm'}, 
-          {id: 'margin-bottom', value: '2px'},
-          {id: 'margin-left', value: '8px'},
-          {id: 'transform', value: 'rotate(45deg)'},
-          {id: '-webkit-transform', value: 'rotate(45deg)'},
-          {id: 'border-color', value: 'black'}
-        ];
-        applyStyles(styles, arrow);
-        addChildElement(navElement, arrow);
-      }
-      addChildElement(navbar, navElement);
-    }
-  }
-  createNavElements(navElements, navbar);
-  //adding styles for the nav elements inside the navbar
-  for(element of navbar.children){
-    applyStyles([{id: 'padding', value: '5px'}, {id: 'margin-right', value: '20px'}, {id: 'font-size', value: '15px'}], element);
-  }  
-  //Applying styles to the navbar itself
-  styles = [
-    {id: 'width', value: '880px'},
-    {id: 'position', value: 'absolute'},
-    {id: 'bottom', value: '30px'},
-    {id: 'left', value: '530px'},
-    {id: 'display', value: 'flex'},
-    {id: 'align-items', value: 'center'}
-  ]
-  applyStyles(styles, navbar);
-  addChildElement(navContainer, navbar);
-  addChildElement(header, navContainer);
-  document.body.appendChild(header);
-
-  // Creating array to store elements I want a listener for. 
-  const objectsToLisen = [location, search, orderButton, mcDonaldsLogo, button1, button2, button3, ...navbar.children];
-  
-  return objectsToLisen;
-  
-}
 
 function designMainContent (){
 
@@ -687,17 +442,418 @@ function designFooterBottom(){
 
   return [objectsToLisen, buttonsIconsContainer, footerBottom];
 }
-//Defining array of objects to implement Eventlistener for hover functionality
-//The design functions should return array of objects that should have a hover function
-//Will add elements into this array from each section of the page.
 
+
+
+
+// ------ Design Functions for sections ---------
+
+function designHeaderSection (){
+
+  function designHeader(){
+    const header = document.createElement('div');
+    header.id ='header';
+  
+    //Styles for the header element
+    let styles = [
+      {id: 'height', value: '140px'},
+      {id: 'margin', value: '-10px'},
+      {id: 'display', value: 'flex'},
+      {id: 'position', value: 'relative'},
+      {id: 'boxShadow', value: 'rgba(0, 0, 0, 0.04) 0px 1px 8px 0px, rgba(0, 0, 0, 0.04) 0px 1px 5px 0px'}
+      
+    ];
+    applyStyles(styles, header);
+    return header
+  }
+
+  function designNavContainerSection(){
+
+    function designNavContainer(){
+      const navContainer = document.createElement('div');
+      navContainer.id = 'nav-container';
+  
+      //Styles for navContainer
+  
+      styles = [
+        {id: 'width:', value: '65%'},
+        {id: 'padding-right', value: '50px'},
+        {id: 'display', value: 'flex'},
+        {id: 'margin', value: 'auto'},
+        {id: 'height', value: '100px'}
+      ];
+  
+      applyStyles(styles, navContainer);
+      return navContainer;
+    }
+    function designMcDonaldsLogo(){
+      const mcDonaldsLogo = document.createElement('img');
+      mcDonaldsLogo.id = 'mcdonalds-logo';
+    
+      styles = [
+        {id: 'height', value: '105px'},
+        {id: 'margin-left', value: '-45px'}
+      ];
+      applyStyles(styles, mcDonaldsLogo);
+      mcDonaldsLogo.src = 'Images/mcdonalds-logo.jpg';
+      return mcDonaldsLogo;
+    }
+    
+    function designTopLeftSection(){
+      const childElements = [];
+    
+      const topLeft = designTopLeft();
+      childElements.push(...designButtons());
+    
+      childElements.forEach(element =>{
+        addChildElement(topLeft, element);
+        hoverObjects.push(element);
+      });
+      
+      function designTopLeft(){
+        const topLeft = document.createElement('div');
+        topLeft.id ='top-left-section';
+        styles = [
+          {id: 'width', value: '400px'},
+          {id: 'height', value: '40px'},
+          {id: 'margin-left', value: '50px'},
+          {id: 'display', value: 'flex'},
+          {id: 'align-items', value: 'center'}
+        ];
+    
+        applyStyles(styles, topLeft);
+        return topLeft;
+      }
+      
+      function designButtons(){
+        const button1 = document.createElement('button');
+        const button2 = document.createElement('button');
+        const button3 = document.createElement('button');
+        button1.textContent = 'Language';
+        button2.textContent = 'Sign up for Email';
+        button3.textContent = 'Careers';
+        
+        
+        styles = [
+          {id: 'font-size', value: '13px'},
+          {id: 'text-align', value: 'center'},
+          {id: 'padding', value: '5px 10px'},
+          {id: 'margin-right', value: '15px'},
+          {id: 'border', value: 'none'},
+          {id: 'background-color', value: 'white'}
+        ]
+        applyStyles(styles, button1);
+        applyStyles(styles, button2);
+        applyStyles(styles, button3);
+    
+        addChildElement(button1, designDownArrow());
+        return [button1, button2, button3];
+      }
+      
+      function designDownArrow (){
+        const downArrow = document.createElement('i');
+        styles = [
+          {id: 'border',value: 'solid #292929'},
+          {id: 'border-width', value: '0 1px 1px 0'},
+          {id: 'display', value: 'inline-block'},
+          {id: 'padding', value: '0.8mm'}, 
+          {id: 'margin-bottom', value: '2px'},
+          {id: 'margin-left', value: '8px'},
+          {id: 'transform', value: 'rotate(45deg)'},
+          {id: '-webkit-transform', value: 'rotate(45deg)'}
+        ];
+        applyStyles(styles, downArrow);
+        return downArrow;
+      }
+      
+      return topLeft;
+    
+    }
+    
+    function designTopRightSection(){
+      function designTopRight(){
+        //Top Right section
+        const topRight = document.createElement('div');
+        topRight.id = 'top-right-section';
+    
+        styles = [
+          {id: 'width', value: '400px'},
+          {id: 'height', value: '40px'},
+          {id: 'margin-left', value: '130px'},
+          {id: 'display', value: 'flex'},
+          {id: 'align-items', value: 'center'}
+        ]
+        applyStyles(styles, topRight);
+        return topRight;
+      }
+    
+      function designSearchSection(){
+    
+        const search = designSearch();
+        const childElements = [];
+        childElements.push(designSearchIcon()),
+        childElements.push(designSearchText());
+    
+    
+        childElements.forEach(element => {
+          addChildElement(search, element);
+          hoverObjects.push(element);
+        });
+    
+        function designSearch(){
+          //search button
+          const search = document.createElement('div');
+          styles = [
+            {id: 'position', value: 'relative'},
+            {id: 'height', value: '25px'},
+            {id: 'display', value: 'flex'},
+            {id: 'align-items', value: 'center'},
+            {id: 'padding', value: '2px 5px'},
+            {id: 'margin-right', value: '20px'},
+            {id: 'font-size', value: '14px'}
+          ];
+          applyStyles(styles, search);
+          return search;
+        }
+        
+        
+        function designSearchIcon(){
+          const searchIcon = document.createElement('img');
+          searchIcon.src = 'Images/search-icon.png';
+          applyStyles([{id: 'margin-right', value: '5px'}], searchIcon);
+          return searchIcon;
+        }
+    
+        function designSearchText(){
+          const searchText = document.createElement('span');
+          searchText.textContent = 'Search';
+          applyStyles([{id: 'font-size', value: '14px'}], searchText);
+          return searchText;
+        }
+        
+        //addChildElement(search, searchIcon);
+        return search;
+      }
+      
+      function designLocationSection(){
+        
+        function designLocation(){
+          const location = document.createElement('div');  
+           //styling location
+          styles = [
+            {id: 'height', value: '25px'},
+            {id: 'text-align', value: 'center'},
+            {id: 'display', value: 'flex'},
+            {id: 'align-items', value: 'center'},
+            {id: 'text-decoration', value: 'underline'},
+            {id: 'padding', value: '2px 5px'},
+            {id: 'margin-right', value: '20px'},
+            {id: 'font-size', value: '13px'},
+            {id: 'color', value: 'rgb(0, 107, 174)'}
+          ];
+        
+          applyStyles(styles, location);
+          return location;
+        }
+        function designLocationText(){
+          const locationText = document.createElement('span');
+          locationText.textContent = 'Change your Location';
+          applyStyles([{id: 'margin-left', value: '3px'}], locationText);
+          return locationText;
+        }
+        function designGpsIcon(){
+          const gpsIcon = document.createElement('img');
+        
+          gpsIcon.src = 'Images/gps-icon.png';
+          return gpsIcon;
+        }
+  
+        const location = designLocation();
+        const childElements = [];
+        childElements.push(designGpsIcon());
+        childElements.push(designLocationText());
+        childElements.forEach(element => {
+          addChildElement(location, element);
+          hoverObjects.push(element);
+        });
+  
+        return location;
+      }
+  
+      function designOrderButton(){
+        const orderButton = document.createElement('div');
+        orderButton.textContent = 'Order now';
+        styles = [
+          {id: 'width', value: '120px'},
+          {id: 'height', value: '40px'},
+          {id: 'background-color', value: 'rgb(255, 188, 13)'},
+          {id: 'font-size', value: '15px'},
+          {id: 'border', value: 'none'},
+          {id: 'border-radius', value: '4px'},
+          {id: 'display', value: 'flex'},
+          {id: 'align-items', value: 'center'},
+          {id: 'justify-content', value: 'center'}
+        ];
+      
+        applyStyles(styles, orderButton);
+        hoverObjects.push(orderButton);
+        return orderButton;
+      }
+  
+      const topRight = designTopRight();
+    
+      const childElements = [];
+    
+      childElements.push(designSearchSection());
+      childElements.push(designLocationSection());
+      childElements.push(designOrderButton());
+      childElements.forEach(element =>{
+        addChildElement(topRight, element);
+      });
+    
+    
+    
+      
+      return topRight;
+    }
+  
+  
+    const navContainer = designNavContainer();
+    
+  
+    //Creating collection of Child Elements
+    const childElements = [];
+  
+    childElements.push(designMcDonaldsLogo());
+    childElements.push(designTopLeftSection());
+    childElements.push(designTopRightSection());
+    console.log(childElements);
+    
+    childElements.forEach(element =>{
+      addChildElement(navContainer, element);
+    });
+    
+    return navContainer;
+  }
+  
+  function designNavElementsSection(){
+  
+    function designNavbar(){
+      const navbar = document.createElement('nav');
+      //Applying styles to the navbar itself
+      styles = [
+        {id: 'width', value: '880px'},
+        {id: 'position', value: 'absolute'},
+        {id: 'bottom', value: '30px'},
+        {id: 'left', value: '530px'},
+        {id: 'display', value: 'flex'},
+        {id: 'align-items', value: 'center'}
+      ]
+      applyStyles(styles, navbar);
+      return navbar;
+    }
+  
+    function designNavElements(){
+      const navElements = [];
+      const navElementsText = ['Our Menu', 'Download App', `MyMcDonald's Rewards`, 'Exclusive Deals', 'About Our Food', 'Locate', 'Gift Cards'];
+      function createNavElements(navElementsText){
+        for(element of navElementsText){
+          const navElement = document.createElement('a');
+          navElement.textContent = element;
+          if(element === 'Our Menu'){
+            const arrow = document.createElement('i');
+            styles = [
+              {id: 'border',value: 'solid #292929'},
+              {id: 'border-width', value: '0 1px 1px 0'},
+              {id: 'display', value: 'inline-block'},
+              {id: 'padding', value: '0.8mm'}, 
+              {id: 'margin-bottom', value: '2px'},
+              {id: 'margin-left', value: '8px'},
+              {id: 'transform', value: 'rotate(45deg)'},
+              {id: '-webkit-transform', value: 'rotate(45deg)'},
+              {id: 'border-color', value: 'black'}
+            ];
+            applyStyles(styles, arrow);
+            addChildElement(navElement, arrow);
+          }
+          navElements.push(navElement);
+        }
+      }
+      
+      createNavElements(navElementsText);
+      return navElements
+      
+    }
+  
+    const navbar = designNavbar();
+  
+    const childElements = [];
+    childElements.push(...designNavElements());
+    childElements.forEach(element =>{
+      addChildElement(navbar, element);
+      hoverObjects.push(element);
+    });
+  
+    for(element of navbar.children){
+      applyStyles([{id: 'padding', value: '5px'}, {id: 'margin-right', value: '20px'}, {id: 'font-size', value: '15px'}], element);
+    }  
+    
+    return navbar;
+  }
+
+
+
+  const childElements = []; 
+
+  const header = designHeader();
+  childElements.push(designNavContainerSection());
+  const navContainer = designNavContainerSection();
+  
+  childElements.push(designNavElementsSection());
+
+  childElements.forEach(element =>{
+    addChildElement(header, element);
+  });
+
+    document.body.appendChild(header);
+
+ 
+  
+}
+
+
+
+
+
+
+
+// ----- Help Functions -------
+
+//Function to apply styles, input element to style and array of style objects
+//object Format: {id: 'property', value: 'desired value'}
+function applyStyles(array, element){
+  array.forEach(styleObj => {
+    element.style[styleObj.id] = styleObj.value;
+  });
+}
+
+function addChildElement(parentElement, element){
+  parentElement.appendChild(element);
+}
+
+
+// --------- Run Section --------------
+
+
+//Styling the body element
 applyStyles([{id: 'padding-bottom', value: '50px'},
             {id: 'padding', value: '0px'},
             {id: 'color', value: 'rgb(41, 41, 41)'}],document.body);
- const hoverObjects = designHeader();
+
+ //Function calls to design each section of page             
+ designHeaderSection();
  
- hoverObjects.push(...designMainContent());
- hoverObjects.push(...designFooter());
+ 
  
  
 
@@ -709,6 +865,20 @@ applyStyles([{id: 'padding-bottom', value: '50px'},
         event.target.style.cursor = 'pointer';
       });
     }
+
+
+// -------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
   
 
