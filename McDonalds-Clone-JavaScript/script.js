@@ -654,229 +654,7 @@ function mainContentSection(){
   });
   
   
-  function designBottomSection(){
-    //bottom part of mainContent
-    const bottomContainer = createBottomContainer();
-    const childElements = [];
-
-    childElements.push(...designCards());
-    /*
-    childElements.forEach(element =>{
-      console.log(element.children)
-    });
-    */
-    childElements.forEach(element =>{
-      addChildElement(bottomContainer, element);
-    });
-
-    //console.log(bottomContainer);
-    function createBottomContainer(){
-      const bottomContainer = document.createElement('div');
-      styles = [
-        {id: 'height', value: '550px'},
-        {id: 'width', value: '1170px'},
-        {id: 'padding', value: '0px 12px'},
-        {id: 'padding-bottom', value: '70px'},
-        {id: 'padding-top', value: '50px'},
-        {id: 'display', value: 'flex'},
-        {id: 'flex-direction', value: 'row'},
-        {id: 'column-gap', value: '20px'},
-        {id: 'justify-content', value: 'center'},
-        {id: 'align-items', value: 'center'}
-      ];
-      applyStyles(styles, bottomContainer);
-      return bottomContainer;
-    }
-    
-
-
-    function designCards(){
-
-      const cards = [];
-      const cardTexts = ['Everyday, culinary masters are cooking up new tastes in our kitchens.', 
-                        'Get to know our Registered Dietitian Nutritionists who add a different type of value to your meal.',
-                        'Meet some of the people who provide the ingredients for your favorite menu items.'];
-      
-      cardTexts.forEach(text => {
-        cards.push(designCard(text));
-      });
-
-      function designCard(text){
-        const card = createCard();
-        
-        const childElements = [];
-
-        childElements.push(designCardText(text));
-
-        childElements.forEach(element =>{
-          addChildElement(card, element);
-        });
-
-        function createCard(){
-          const card = document.createElement('div');
-          styles = [
-            {id: 'width', value: '380px'},
-            {id: 'height', value: '500px'},
-            {id: 'display', value: 'flex'},
-            {id: 'flex-direction', value: 'column'},
-            {id: 'text-align', value: 'left'}
-          ];
-          applyStyles(styles, card);
-          return card;
-        }
-
-        function designCardText(text){
-          const cardText = document.createElement('span');
-          cardText.textContent = text;
-          applyStyles([{id: 'font-size', value: '17px'},
-          {id: 'margin-top', value: '20px'}], cardText);
-          return cardText;
-        }
-
-
-        return card;
-      }
-      return cards;
-    }
-    return bottomContainer;
-  }
- 
   
-/*
-  
-  
-  //bottom part of mainContent
-  const bottomContainer = document.createElement('div');
-  //first card
-  const card1  =document.createElement('div');
-  const card2  =document.createElement('div');
-  const card3  =document.createElement('div');
-  
-  const card1Text = document.createElement('span');
-  card1Text.textContent = 'Everyday, culinary masters are cooking up new tastes in our kitchens.';
-  const card2Text = document.createElement('span');
-  card2Text.textContent = 'Get to know our Registered Dietitian Nutritionists who add a different type of value to your meal.';
-  const card3Text = document.createElement('span');
-  card3Text.textContent = 'Meet some of the people who provide the ingredients for your favorite menu items.';
-  
-  [card1Text, card2Text, card3Text].forEach(cardText =>{
-    applyStyles([{id: 'font-size', value: '17px'},
-                {id: 'margin-top', value: '20px'}], cardText);
-  });
-
-  const chefImage = document.createElement('img');
-  chefImage.src = 'Images/chef.jpg';
-  const dietImage = document.createElement('img');
-  dietImage.src = 'Images/cynthia.jpg';
-  const supplierImage = document.createElement('img');
-  supplierImage.src = 'Images/supplierLetuce.jpg';
-
-  const headline1 = document.createElement('h2');
-  headline1.textContent = 'Our Chefs';
-  const headline2 = document.createElement('h2');
-  headline2.textContent = 'Our Chefs';
-  const headline3 = document.createElement('h2');
-  headline3.textContent = 'Our Chefs';
-
-  [headline1, headline2, headline3].forEach(headline =>{
-    applyStyles([{id: 'font-size', value: '32px'},
-                {id: 'font-weight', value: '700'},
-                {id: 'margin-top', value: '30px'},
-                {id: 'margin-bottom', value: '0px'}], headline)
-  });
-
-  
-  const button1 = document.createElement('button');
-  button1.textContent = 'Meet Our Chefs';
-  const button2 = document.createElement('button');
-  button2.textContent = 'Meet Our Dietitians';
-  const button3 = document.createElement('button');
-  button3.textContent = 'See Supplier Stories';
-
-  const buttons = [button1, button2, button3];
-  styles = [
-    {id: 'width', value: '140px'},
-    {id: 'height', value: '50px'},
-    {id: 'border', value: 'none'},
-    {id: 'border-radius', value: '3px'},
-    {id: 'background-color', value: 'rgb(255, 188, 13)'},
-    {id: 'margin-top', value: '40px'},
-    {id: 'font-size', value: '15px'}
-  ];
-  buttons.forEach(button =>{
-    applyStyles(styles, button);
-  });
-
-  applyStyles([{id: 'width', value: '170px'}], button2);
-  applyStyles([{id: 'width', value: '170px'}], button3);
-  //Styling elements
-  //styles for Bottom Container
-  styles = [
-    {id: 'height', value: '550px'},
-    {id: 'width', value: '1170px'},
-    {id: 'padding', value: '0px 12px'},
-    {id: 'padding-bottom', value: '70px'},
-    {id: 'padding-top', value: '50px'},
-    {id: 'display', value: 'flex'},
-    {id: 'flex-direction', value: 'row'},
-    {id: 'column-gap', value: '20px'},
-    {id: 'justify-content', value: 'center'},
-    {id: 'align-items', value: 'center'}
-  ];
-  applyStyles(styles, bottomContainer);
-
-  applyStyles([{id: 'width', value: '100%'}], chefImage);
-  applyStyles([{id: 'width', value: '100%'}], dietImage);
-  applyStyles([{id: 'width', value: '100%'}], supplierImage);
-  
-  */
-  /*
-  
-  //Styles for Card
-  const cards = [card1, card2, card3];
-  styles = [
-    {id: 'width', value: '380px'},
-    {id: 'height', value: '500px'},
-    {id: 'display', value: 'flex'},
-    {id: 'flex-direction', value: 'column'},
-    {id: 'text-align', value: 'left'}
-  ];
-
-  cards.forEach(card =>{
-    applyStyles(styles, card);
-  })
-  
-  */
-  /*
-  addChildElement(card1, chefImage);
-  addChildElement(card1, headline1);
-  addChildElement(card1, card1Text);
-  addChildElement(card1, button1);
-
-  addChildElement(card2, dietImage);
-  addChildElement(card2, headline2);
-  addChildElement(card2, card2Text);
-  addChildElement(card2, button2);
-
-  addChildElement(card3, supplierImage);
-  addChildElement(card3, headline3);
-  addChildElement(card3, card3Text);
-  addChildElement(card3, button3);
-  
-
-  addChildElement(bottomContainer, card1);
-  addChildElement(bottomContainer, card2);
-  addChildElement(bottomContainer, card3);
-  
-
-  
-
- 
-  addChildElement(mainContent, bottomContainer);
-  
-*/
-  //const objectsToLisen = [...buttons];
-
 
   function designMainContent (){
     const mainContent = document.createElement('div');
@@ -952,7 +730,145 @@ function mainContentSection(){
 
   }
 
+  function designBottomSection(){
+    //bottom part of mainContent
+    const bottomContainer = createBottomContainer();
+    const childElements = [];
 
+    childElements.push(...designCards());
+    /*
+    childElements.forEach(element =>{
+      console.log(element.children)
+    });
+    */
+    childElements.forEach(element =>{
+      addChildElement(bottomContainer, element);
+    });
+
+    //console.log(bottomContainer);
+    function createBottomContainer(){
+      const bottomContainer = document.createElement('div');
+      styles = [
+        {id: 'height', value: '550px'},
+        {id: 'width', value: '1170px'},
+        {id: 'padding', value: '0px 12px'},
+        {id: 'padding-bottom', value: '70px'},
+        {id: 'padding-top', value: '50px'},
+        {id: 'display', value: 'flex'},
+        {id: 'flex-direction', value: 'row'},
+        {id: 'column-gap', value: '20px'},
+        {id: 'justify-content', value: 'center'},
+        {id: 'align-items', value: 'center'}
+      ];
+      applyStyles(styles, bottomContainer);
+      return bottomContainer;
+    }
+    
+
+
+    function designCards(){
+      const numberOfCards = 3;
+      const cards = [];
+      const cardTexts = ['Everyday, culinary masters are cooking up new tastes in our kitchens.', 
+                        'Get to know our Registered Dietitian Nutritionists who add a different type of value to your meal.',
+                        'Meet some of the people who provide the ingredients for your favorite menu items.'];
+      const imagePaths = ['chef.jpg', 'cynthia.jpg', 'supplierLetuce.jpg'];
+      const headlines = ['Our Chefs', 'Our Dietitians', 'Supplier Stories'];
+
+      const buttonLabels = ['Meet Our Chefs', 'Meet Our Dietitians', 'See Supplier Stories'];
+
+      
+      
+      //Assumes all cards have a unique image and text. 
+      for (let i = 0; i < numberOfCards; i++){
+        cards.push(designCard(cardTexts[i], imagePaths[i], headlines[i], buttonLabels[i]));
+      }
+      
+
+      function designCard(text, path, headline, buttonLabel){
+        const card = createCard();
+        
+        const childElements = [];
+
+        childElements.push(designImage(path));
+        childElements.push(designCardHeadline(headline));
+        childElements.push(designCardText(text));
+        childElements.push(designCardButton(buttonLabel));
+        
+
+        childElements.forEach(element =>{
+          addChildElement(card, element);
+        });
+
+        function createCard(){
+          const card = document.createElement('div');
+          styles = [
+            {id: 'width', value: '380px'},
+            {id: 'height', value: '500px'},
+            {id: 'display', value: 'flex'},
+            {id: 'flex-direction', value: 'column'},
+            {id: 'text-align', value: 'left'}
+          ];
+          applyStyles(styles, card);
+          return card;
+        }
+
+        function designCardText(text){
+          const cardText = document.createElement('span');
+          cardText.textContent = text;
+          applyStyles([{id: 'font-size', value: '17px'},
+          {id: 'margin-top', value: '20px'}], cardText);
+          return cardText;
+        }
+
+        function designImage(finalPath){
+          const image = document.createElement('img');
+          console.log(finalPath);
+          image.src = `Images/${finalPath}`;
+          applyStyles([{id: 'width', value: '100%'}], image);
+          
+          return image
+          
+        }
+
+        function designCardHeadline(headlineText){
+          const headline = document.createElement('h2');
+          headline.textContent = headlineText;
+          applyStyles([{id: 'font-size', value: '32px'},
+                {id: 'font-weight', value: '700'},
+                {id: 'margin-top', value: '30px'},
+                {id: 'margin-bottom', value: '0px'}], headline);
+          return headline;
+        }
+
+        function designCardButton(label){
+          const button = document.createElement('button');
+          button.textContent = label;
+          styles = [
+            {id: 'width', value: '140px'},
+            {id: 'height', value: '50px'},
+            {id: 'border', value: 'none'},
+            {id: 'border-radius', value: '3px'},
+            {id: 'background-color', value: 'rgb(255, 188, 13)'},
+            {id: 'margin-top', value: '40px'},
+            {id: 'font-size', value: '15px'}
+          ];
+          if(label === "Meet Our Dietitians" || "See Supplier Stories")
+            styles.push({id: 'width', value: '170px'});
+          applyStyles(styles, button);
+          
+          //Implement Hover functionality on button
+          hoverObjects.push(button);
+          
+          return button;
+        }
+
+        return card;
+      }
+      return cards;
+    }
+    return bottomContainer;
+  }
 
   addChildElement(document.body, mainContent);
   
