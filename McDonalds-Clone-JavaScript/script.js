@@ -1,270 +1,35 @@
 // Creating array to store elements I want a listener for. 
 const hoverObjects = [];
   
-//Putting code to make each segment of the page into a function to make it easier to read
+
+// --------- Run Section --------------
 
 
+//Styling the body element
+styleBody();
 
-function designFooter(){
-  const objectsToLisen = [];
-  const footer = document.createElement('footer');
-
-  //The design functions should return array consisting of objects to implement hover on, second element should be the container for the section. 
-  //Then we can add the section to the footer element itself.
-  const footerCards = designFooterTop();
-  const footerBottom = designFooterBottom();
-  addChildElement(footer, footerCards[1]);
-
-  //Two containers in the bottom part
-  addChildElement(footer, footerBottom[1]);
-  addChildElement(footer, footerBottom[2]);
-
-  //Styling footer element
-  let styles = [
-    {id: 'height', value: '700px'},
-    {id: 'width', value: '1130px'},
-    {id: 'margin', value: 'auto'},
-    {id: 'padding', value: '30px'},
-    {id: 'display', value: 'flex'},
-    {id: 'flex-direction', value: 'column'},
-    {id: 'padding-bottom', value: '100px'}
-  ];
-  applyStyles(styles, footer);
-  addChildElement(document.body, footer);
-
-  //First element of the returned array is the objects we want to have hover function on
-  objectsToLisen.push(...footerCards[0]);
-  objectsToLisen.push(...footerBottom[0]);
-
-  //Array is returned for the main loop to implement the eventListener
-  return objectsToLisen;
-}
+ //Function calls to design each section of the page             
+ headerSection();
+ mainContentSection();
+ footerSection();
+ 
+ 
+ 
+ //-----------------------------------------
 
 
-//Help function to create footerCards and add them to the container. 
-function footerCard(textArray, footerCardContainer, objectsToLisen){
-  const footerCard = document.createElement('div');
-  const fixedLinksArray1 = textArray.map((element, index) =>{
-    if(index === 0) {
-      const h2 = document.createElement('h2');
-      h2.textContent = element;
-      return h2;
+//Adding Eventlisteners to implement hover functionality
+
+  for(element of hoverObjects){
+    element.addEventListener (
+      'mouseover', (event)=> {
+        event.target.style.cursor = 'pointer';
+      });
     }
-    else {
-      const spanElement = document.createElement('span');
-      spanElement.textContent = element;
-      return spanElement;
-    }
-    
-  });
-  
-  const headline1 =fixedLinksArray1.splice(0, 1)[0];
-
-  // ---- styling -------
-  //card
-  let styles = [
-    {id: 'height', value: '450px;'},
-    {id: 'width', value: '300px'},
-    {id: 'display', value: 'flex'},
-    {id: 'flex-direction', value: 'column'},
-    {id: 'row-gap', value: '15px'}
-  ];
-  applyStyles(styles, footerCard);
-  //headline
-  applyStyles([{id: 'font-size', value: '18px'}], headline1);
-
-  //text elements
-  fixedLinksArray1.forEach(element =>{
-    applyStyles([{id: 'font-size', value: '16px'}], element);
-    objectsToLisen.push(element);
-  });
-
-  addChildElement(footerCard, headline1);
-  fixedLinksArray1.forEach(element =>{
-    addChildElement(footerCard, element);
-  });
-  addChildElement(footerCardContainer, footerCard);
-  return objectsToLisen;
-}
-function designFooterTop (){
-  const objectsToLisen = [];
-
-  const footerCardContainer = document.createElement('div');
-  
-
-  const text1='About Us,About Us Overview,Leadership Team,Values In Action,Franchise Info,Recalls & Alerts,Real Estate,Accessibility,Investor Relations,News & Notifications';
-  const textArray1 = text1.split(',');
-  const text2 = `Services,Services Overview,Wi-Fi,PlayPlaces & Parties,McDelivery®,Mobile Order & Pay,Trending Now,McDonald’s Merchandise,Family Fun Hub,MyMcDonald's Rewards,McCafé®`
-  const textArray2 = text2.split(',');
-  const text3 = `Community,Community Overview,Meet the 1 in 8,HACER® Scholarships for Hispanic Students,Ronald McDonald House Charities,McDonald’s Asian Pacific American,McDonald’s International,`
-                + `Black and Positively Golden,McDonald’s LGBTQ+`;
-  const textArray3 = text3.split(',');
-  const text4 = 'Contact Us,Contact Us Overview,Gift Card FAQs,Donations,Employment,Customer Feedback,Frequently Asked Questions';
-  const textArray4 = text4.split(',');
-  
-
-  const arraysOfText = [textArray1, textArray2, textArray3, textArray4];
-
-  //For every array we create a card. Returned from footerCard is the objects in the card that we should implement hover functionality on. These are pushed into our collection.
-  //Each array consists of the text to be put into text elements on each card
-  arraysOfText.forEach(textArray => {
-    objectsToLisen.push(...footerCard(textArray, footerCardContainer, objectsToLisen));
-  });
-  
-  // ---- Styling footerCardContainer
-  let styles = [
-    {id: 'display', value: 'flex'},
-    {id: 'column-gap', value: '80px'},
-    {id: 'justify-content', value: 'center'},
-    {id: 'padding-bottom', value: '80px'}
-  ];
-  applyStyles(styles, footerCardContainer);
-  
-  return [objectsToLisen, footerCardContainer];
-}
-function designFooterBottom(){
-  const objectsToLisen = [];
-
-
-  //First section
-  const buttonsIconsContainer = document.createElement('div');
-  //styling Container
-  let styles = [
-    {id: 'height', value: '100px'},
-    {id: 'width', value: '100%'},
-    {id: 'display', value: 'flex'},
-    {id: 'position', value: 'relative'},
-    {id: 'border-bottom', value: '1px solid rgb(200, 200, 200)'}    
-    //{id: 'padding-bottom', value: '0px'}
-  ];
-  applyStyles(styles, buttonsIconsContainer);
-  const iconsContainer = document.createElement('div');
-  const icons = ["Images/facebook.png", 'Images/twitter.png', 'Images/youtube.png', 'Images/instagram.png', 'Images/tumblr.png', 'Images/spotify.png'];
-
-  //Creating and styling the icons. Finishing with adding them to container
-  icons.forEach(element =>{
-    const icon = document.createElement('img');
-    icon.src = element;
-    
-    applyStyles([{id: 'height', value: '32px'},
-                {id: 'width', value: '32px'},
-                {id: 'margin-right', value: '16px'}], icon);
-    addChildElement(iconsContainer, icon);
-    objectsToLisen.push(icon);
-                
-  });
-
-  
-
-  //Styling the iconsContainer
-  applyStyles([{id: 'width', value: '300px'}, {id: 'display', value: 'flex'}], iconsContainer);
-  addChildElement(buttonsIconsContainer, iconsContainer);
-
-  const buttonContainer = document.createElement('div');
-  //Styling the buttonContainer
-  styles = [
-    {id: 'width', value: '330px'},
-    {id: 'height', value: '42px'},
-    {id: 'position', value: 'absolute'},
-    {id: 'right', value: '0'},
-    {id: 'display', value: 'flex'},
-    {id: 'column-gap', value: '30px'}
-  ];
-  applyStyles(styles, buttonContainer);
-  //styling for each image/button
-  styles = [
-    {id: 'width', value: '130px'},
-    {id: 'border-radius', value: '6px'},
-    {id: 'padding', value: '2px'},
-    {id: 'background-color', value: 'black'}
-  ];
-
-  ['Images/appstore.png', 'Images/googleplay.png'].forEach(element =>{
-    const image = document.createElement('img');
-    image.src = element;
-    applyStyles(styles, image);
-    addChildElement(buttonContainer, image);
-    objectsToLisen.push(image);
-    
-
-  });
-  
-  addChildElement(buttonsIconsContainer, buttonContainer);
-  
-  
-  // ------------ Bottom Section --------------------
-
-
-  const footerBottom = document.createElement('div');
-  //Applying styles to footerBottom
-  applyStyles([{id: 'margin-top', value: '60px'}, {id: 'display', value: 'flex'}, {id: 'position', value: 'relative'}], footerBottom);
-
-  // ----- Link section
-
-  const footerBottomLinks = document.createElement('div');
-  // Styling for footerBottomLinks container
-  styles = [
-    {id: 'width', value: '620px'},
-    {id: 'padding-right', value: '100px'},
-    {id: 'height', value: '100px'},
-    {id: 'display', value: 'flex'},
-    {id: 'flex-wrap', value: 'wrap'},
-    {id: 'column-gap', value: '40px'}
-  ];
-  applyStyles(styles, footerBottomLinks);
-  const elementTexts = 'Privacy (Updated),California Privacy Notice,Terms & Conditions,Accessibility,Do Not Sell or Share My Personal Information,Cookies Settings';
-  const elementTextsArray = elementTexts.split(',');
-
-  elementTextsArray.forEach(element =>{
-    const spanElement = document.createElement('span');
-    spanElement.textContent = element;
-    applyStyles([{id: 'font-size', value: '15px'}, {id: 'padding', value: '0'}], spanElement);
-    addChildElement(footerBottomLinks, spanElement);
-    objectsToLisen.push(spanElement);
-  });
-  
-  addChildElement(footerBottom, footerBottomLinks);
-
-  // -------------- Copyright Section -----------------
-  const copyright = document.createElement('div');
-  
-  //Styling container
-  styles = [
-    {id: 'height', value: '100px'},
-    {id: 'width', value: '315px'},
-    {id: 'display', value: 'flex'},
-    {id: 'font-size',value: '15px'},
-    {id: 'position', value: 'absolute'},
-    {id: 'right', value: '0'}
-  ];
-  applyStyles(styles, copyright);
-
-  const copyrightLogo = document.createElement('img');
-  copyrightLogo.src = 'Images/arches-logo_108x108.jpg';
-  copyrightLogo.style.height = '30px';
-
-  const copyrightText = document.createElement('span');
-  
-  
-  copyrightText.innerHTML = `&copy; 2017 - 2023 McDonald's. All Rights <br>Reserved`;
-  copyrightText.style.paddingLeft = '50px';
-
-  
-  
-
-  addChildElement(copyright, copyrightLogo);
-  addChildElement(copyright, copyrightText);
-
-  addChildElement(footerBottom, copyright);
-  
-
-  return [objectsToLisen, buttonsIconsContainer, footerBottom];
-}
 
 
 
-
-// ------ Design Functions for sections ---------
+// --------------- Design Functions for sections -------------------
 
 function headerSection (){
 
@@ -874,12 +639,332 @@ function mainContentSection(){
   
 }
 
+function footerSection(){
+  const childElements = [];
+  const footer = createFooter();
+
+  childElements.push(designFooterTop());
+  childElements.forEach(element =>{
+    addChildElement(footer, element);
+  });
+
+
+  function createFooter(){
+    const footerElement = document.createElement('footer');
+    //Styling footer element
+    let styles = [
+      {id: 'height', value: '700px'},
+      {id: 'width', value: '1130px'},
+      {id: 'margin', value: 'auto'},
+      {id: 'padding', value: '30px'},
+      {id: 'display', value: 'flex'},
+      {id: 'flex-direction', value: 'column'},
+      {id: 'padding-bottom', value: '100px'}
+    ];
+    applyStyles(styles, footerElement);
+    return footerElement;
+  }
+
+  function designFooterTop (){
+    const footerCardContainer = createFooterCardContainer();
+    const childElements = [];
+
+    childElements.push(...designFooterCards());
+    
+    childElements.forEach(element =>{
+      addChildElement(footerCardContainer, element);
+    });
+
+    function createFooterCardContainer(){
+      const footerCardContainer = document.createElement('div');  
+      // ---- Styling footerCardContainer
+      let styles = [
+        {id: 'display', value: 'flex'},
+        {id: 'column-gap', value: '80px'},
+        {id: 'justify-content', value: 'center'},
+        {id: 'padding-bottom', value: '80px'}
+      ];
+      applyStyles(styles, footerCardContainer);
+      return footerCardContainer;
+    }
+    
+    function designFooterCards(){
+      const cards = [];
+      const textArrayForCards = createTextArrayForCards();
+
+      textArrayForCards.forEach(textArray =>{
+        cards.push(footerCard(textArray));
+      });
+
+      
+
+      function createTextArrayForCards(){
+        const textArray = [];
+        const text1 = 'About Us,About Us Overview,Leadership Team,Values In Action,Franchise Info,Recalls & Alerts,Real Estate,Accessibility,Investor Relations,News & Notifications';
+        textArray.push(text1.split(','));
+        
+        const text2 = `Services,Services Overview,Wi-Fi,PlayPlaces & Parties,McDelivery®,Mobile Order & Pay,Trending Now,McDonald’s Merchandise,Family Fun Hub,MyMcDonald's Rewards,McCafé®`
+        textArray.push(text2.split(','));
+
+        const text3 = `Community,Community Overview,Meet the 1 in 8,HACER® Scholarships for Hispanic Students,Ronald McDonald House Charities,McDonald’s Asian Pacific American,McDonald’s International,`
+                      + `Black and Positively Golden,McDonald’s LGBTQ+`;
+        textArray.push(text3.split(','));
+
+        const text4 = 'Contact Us,Contact Us Overview,Gift Card FAQs,Donations,Employment,Customer Feedback,Frequently Asked Questions';
+        textArray.push(text4.split(','));
+
+        return textArray;
+      }
+
+      function footerCard(textArray){
+        const card = createCard();
+        const childElements = [];
+
+        childElements.push(...designFooterCardElements(textArray));
+        
+        childElements.forEach(element =>{
+          addChildElement(card, element);
+        });
+
+        function createCard(){
+          const footerCard = document.createElement('div'); 
+          let styles = [
+            {id: 'height', value: '450px;'},
+            {id: 'width', value: '300px'},
+            {id: 'display', value: 'flex'},
+            {id: 'flex-direction', value: 'column'},
+            {id: 'row-gap', value: '15px'}
+          ];
+          applyStyles(styles, footerCard);
+          return footerCard; 
+        }
+
+        function designFooterCardElements(textArray){
+          const cardElements = createElements(textArray);
+          console.log(cardElements);
+          //const headline = cardElements[0];
+          //const linkElements = cardElements.splice(1);
+          //styleElements(linkElements);
+          //styleHeadline(headline);
+
+          function createElements(textArray){
+            const cardElements = textArray.map((text, index) =>{
+              //First element in each array is the headline for that card
+              
+              if(isHeadline(index)) {
+                const headline = createHeadline(text);
+                styleHeadline(headline);                               
+                return headline;
+              }
+              else {
+                const element = createElement(text);
+                styleElement(element);
+                return element;
+              }
+              
+            });
+            
+            
+            
+            function isHeadline(index){
+              return index === 0;
+            }
+
+            function createHeadline(text){
+              const h2 = document.createElement('h2');
+              h2.textContent = text;
+              return h2;
+            }
+
+            function  createElement(text){
+              const spanElement = document.createElement('span');
+              spanElement.textContent = text;
+              return spanElement;
+            }
+            return cardElements;
+          }
+          function styleElement(element){
+            applyStyles([{id: 'font-size', value: '16px'}], element);
+            hoverObjects.push(element);
+            
+          }
+          function styleHeadline(headline){
+            applyStyles([{id: 'font-size', value: '18px'}], headline);
+          }
+          return cardElements;
+        }
+        return card;
+       
+      }
+      return cards;
+    }
+    return footerCardContainer;
+  }
+
+  
+
+
+  
+//TODO ----------- Implement footerBottom --------------------
+ 
+  
+  const footerBottom = designFooterBottom();
+  //addChildElement(footer, footerCards[1]);
+
+  //Two containers in the bottom part
+  addChildElement(footer, footerBottom[1]);
+  addChildElement(footer, footerBottom[2]);
+
+  // ---------------------------------------------------------------
+
+  addChildElement(document.body, footer);
+   
+}
+
+
+function designFooterBottom(){
+  const objectsToLisen = [];
+
+
+  //First section
+  const buttonsIconsContainer = document.createElement('div');
+  //styling Container
+  let styles = [
+    {id: 'height', value: '100px'},
+    {id: 'width', value: '100%'},
+    {id: 'display', value: 'flex'},
+    {id: 'position', value: 'relative'},
+    {id: 'border-bottom', value: '1px solid rgb(200, 200, 200)'}    
+    //{id: 'padding-bottom', value: '0px'}
+  ];
+  applyStyles(styles, buttonsIconsContainer);
+  const iconsContainer = document.createElement('div');
+  const icons = ["Images/facebook.png", 'Images/twitter.png', 'Images/youtube.png', 'Images/instagram.png', 'Images/tumblr.png', 'Images/spotify.png'];
+
+  //Creating and styling the icons. Finishing with adding them to container
+  icons.forEach(element =>{
+    const icon = document.createElement('img');
+    icon.src = element;
+    
+    applyStyles([{id: 'height', value: '32px'},
+                {id: 'width', value: '32px'},
+                {id: 'margin-right', value: '16px'}], icon);
+    addChildElement(iconsContainer, icon);
+    objectsToLisen.push(icon);
+                
+  });
+
+  
+
+  //Styling the iconsContainer
+  applyStyles([{id: 'width', value: '300px'}, {id: 'display', value: 'flex'}], iconsContainer);
+  addChildElement(buttonsIconsContainer, iconsContainer);
+
+  const buttonContainer = document.createElement('div');
+  //Styling the buttonContainer
+  styles = [
+    {id: 'width', value: '330px'},
+    {id: 'height', value: '42px'},
+    {id: 'position', value: 'absolute'},
+    {id: 'right', value: '0'},
+    {id: 'display', value: 'flex'},
+    {id: 'column-gap', value: '30px'}
+  ];
+  applyStyles(styles, buttonContainer);
+  //styling for each image/button
+  styles = [
+    {id: 'width', value: '130px'},
+    {id: 'border-radius', value: '6px'},
+    {id: 'padding', value: '2px'},
+    {id: 'background-color', value: 'black'}
+  ];
+
+  ['Images/appstore.png', 'Images/googleplay.png'].forEach(element =>{
+    const image = document.createElement('img');
+    image.src = element;
+    applyStyles(styles, image);
+    addChildElement(buttonContainer, image);
+    objectsToLisen.push(image);
+    
+
+  });
+  
+  addChildElement(buttonsIconsContainer, buttonContainer);
+  
+  
+  // ------------ Bottom Section --------------------
+
+
+  const footerBottom = document.createElement('div');
+  //Applying styles to footerBottom
+  applyStyles([{id: 'margin-top', value: '60px'}, {id: 'display', value: 'flex'}, {id: 'position', value: 'relative'}], footerBottom);
+
+  // ----- Link section
+
+  const footerBottomLinks = document.createElement('div');
+  // Styling for footerBottomLinks container
+  styles = [
+    {id: 'width', value: '620px'},
+    {id: 'padding-right', value: '100px'},
+    {id: 'height', value: '100px'},
+    {id: 'display', value: 'flex'},
+    {id: 'flex-wrap', value: 'wrap'},
+    {id: 'column-gap', value: '40px'}
+  ];
+  applyStyles(styles, footerBottomLinks);
+  const elementTexts = 'Privacy (Updated),California Privacy Notice,Terms & Conditions,Accessibility,Do Not Sell or Share My Personal Information,Cookies Settings';
+  const elementTextsArray = elementTexts.split(',');
+
+  elementTextsArray.forEach(element =>{
+    const spanElement = document.createElement('span');
+    spanElement.textContent = element;
+    applyStyles([{id: 'font-size', value: '15px'}, {id: 'padding', value: '0'}], spanElement);
+    addChildElement(footerBottomLinks, spanElement);
+    objectsToLisen.push(spanElement);
+  });
+  
+  addChildElement(footerBottom, footerBottomLinks);
+
+  // -------------- Copyright Section -----------------
+  const copyright = document.createElement('div');
+  
+  //Styling container
+  styles = [
+    {id: 'height', value: '100px'},
+    {id: 'width', value: '315px'},
+    {id: 'display', value: 'flex'},
+    {id: 'font-size',value: '15px'},
+    {id: 'position', value: 'absolute'},
+    {id: 'right', value: '0'}
+  ];
+  applyStyles(styles, copyright);
+
+  const copyrightLogo = document.createElement('img');
+  copyrightLogo.src = 'Images/arches-logo_108x108.jpg';
+  copyrightLogo.style.height = '30px';
+
+  const copyrightText = document.createElement('span');
+  
+  
+  copyrightText.innerHTML = `&copy; 2017 - 2023 McDonald's. All Rights <br>Reserved`;
+  copyrightText.style.paddingLeft = '50px';
+
+  
+  
+
+  addChildElement(copyright, copyrightLogo);
+  addChildElement(copyright, copyrightText);
+
+  addChildElement(footerBottom, copyright);
+  
+
+  return [objectsToLisen, buttonsIconsContainer, footerBottom];
+}
 
 
 
 
-
-// ----- Help Functions -------
+// --------------- Help Functions -------------------
 
 //Function to apply styles, input element to style and array of style objects
 //object Format: {id: 'property', value: 'desired value'}
@@ -893,57 +978,10 @@ function addChildElement(parentElement, element){
   parentElement.appendChild(element);
 }
 
-
-// --------- Run Section --------------
-
-
-//Styling the body element
-applyStyles([{id: 'padding-bottom', value: '50px'},
+function styleBody(){
+  applyStyles([{id: 'padding-bottom', value: '50px'},
             {id: 'padding', value: '0px'},
             {id: 'color', value: 'rgb(41, 41, 41)'}],document.body);
-
- //Function calls to design each section of page             
- headerSection();
- mainContentSection();
- 
- 
- 
- 
-
-//Adding Eventlisteners to implement hover functionality
-
-  for(element of hoverObjects){
-    element.addEventListener (
-      'mouseover', (event)=> {
-        event.target.style.cursor = 'pointer';
-      });
-    }
-
-
-// -------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-    
-  
-
-
-
-
-
+}
 
 
