@@ -828,6 +828,7 @@ function footerSection(){
 
       childElements.forEach(element =>{
         addChildElement(iconsContainer, element);
+        hoverObjects.push(element);
       });
 
 
@@ -837,7 +838,7 @@ function footerSection(){
         applyStyles([{id: 'height', value: '32px'},
                   {id: 'width', value: '32px'},
                   {id: 'margin-right', value: '16px'}], icon);
-        hoverObjects.push(icon);
+        
         return icon;
       }
       function createIconsContainer(){
