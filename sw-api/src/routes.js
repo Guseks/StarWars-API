@@ -28,7 +28,7 @@ router.put('/characters/add', async (req, res)=>{
     res.status(200).json({message: `Found more than 1 character matching that name. Characters found: ${foundCharacters}. Please provide a full name.`}) 
   }
   else {
-    res.status(200).json({message: `Character with name ${name} added to collection`});
+    res.status(201).json({message: `Character with name ${name} added to collection`, character: result});
   }
   res.end();
 });
