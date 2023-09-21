@@ -635,7 +635,6 @@ function footerSection(){
   childElements.push(designFooterTop());
   childElements.push(designIconsButtons());
   childElements.push(designBottomSection());
-  console.log(childElements);
   childElements.forEach(element =>{
     addChildElement(footer, element);
   });
