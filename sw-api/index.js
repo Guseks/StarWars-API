@@ -1,4 +1,4 @@
-const {launchProgram} = require('./src/main');
+const {launchApp} = require('./src/app');
 
-launchProgram();
+launchApp();
 
