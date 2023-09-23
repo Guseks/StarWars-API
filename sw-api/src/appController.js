@@ -1,24 +1,24 @@
 const api = require('./api.js');
 
+
 const characters = [];
 
 
 async function addCharacter(name){
-  try {
-    const result = await api.getCharacter(name);
-    if(isEmpty(result)){
-      return result;
-    }
-    else {
-      characters.push(result[0]);
-      return result;
-    }
+  const result = await api.getCharacter(name);
+  if(isEmpty(result)){
+    throw new Error(`Unable to find character with name ${name}. Adding character failed.`);
+  
+  }
+  if(multipleCharactersFound(result)){
+    throw new MultipleCharactersFoundError(`Found more than 1 character matching that name. Please provide a full name.`, result);
     
   }
-  catch (error) {
-    console.log(error.message);
+  else {
+    characters.push(result[0]);
+    return result;
   }
-  
+    
 }
 
 
@@ -27,7 +27,7 @@ function deleteCharacter(name){
   let index = getIndex(name);
   if(characterFound(index)){
     characters.splice(index, 1);
-    return 
+    return; 
   }
   else {
     throw new Error(`Character with name ${name} not found in collection. Unable to delete character.`);
@@ -95,5 +95,23 @@ function getAllCharacters(){
   
 }
 
+function multipleCharactersFound(array){
+  return array.length > 1;
+}
 
-module.exports = {addCharacter, getAllCharacters, chooseCharacterToAdd, deleteCharacter, swapCharacters};
+//Handling the case of finding multiple characters to add, using a custom Error class. 
+class MultipleCharactersFoundError extends Error {
+  constructor (message, data) {
+    super(message);
+    this.name = 'multipleCharactersFound';
+    this.charactersFound = data;
+  }
+}
+
+module.exports = {
+  addCharacter, 
+  getAllCharacters, 
+  deleteCharacter, 
+  swapCharacters, 
+  MultipleCharactersFoundError
+};

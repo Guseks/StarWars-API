@@ -1,11 +1,12 @@
 const express = require("express");
-const appController = require("./appController");
+const {addCharacter, getAllCharacters, deleteCharacter, swapCharacters, MultipleCharactersFoundError} = require("./appController");
+
 
 const router = express.Router();
 
 
 router.get('/characters/', (req, res) =>{
-  const characters = appController.getAllCharacters();
+  const characters = getAllCharacters();
   if(isEmpty(characters)){
     res.status(200).json({message: "No characters in collection"});
   }  
@@ -19,17 +20,26 @@ router.get('/characters/', (req, res) =>{
 
 router.put('/characters/add', async (req, res)=>{
   const name = req.body.name;
-  const result = await appController.addCharacter(name);
-  if(isEmpty(result)){
-    res.status(404).json({message: `Unable to find character with name ${name}. Adding character failed.`});
+  let result;
+  try {
+    result = await addCharacter(name);
+    res.status(201).json({
+      message: `Character with name ${name} added to collection`, 
+      character: result
+    });
   }
-  if(multipleCharactersFound(result)){
-    const foundCharacters = result.map(character => character.name).join(", ");
-    res.status(200).json({message: `Found more than 1 character matching that name. Characters found: ${foundCharacters}. Please provide a full name.`}) 
+  catch (error){
+    if (error instanceof MultipleCharactersFoundError){
+      res.status(400).json({message: error.message, foundCharacters: error.charactersFound});
+    }
+    else {
+      res.status(400).json({message: error.message});
+    }
+    return;
   }
-  else {
-    res.status(201).json({message: `Character with name ${name} added to collection`, character: result});
-  }
+  
+ 
+  
   res.end();
 });
 
@@ -37,7 +47,7 @@ router.put('/characters/add', async (req, res)=>{
 router.delete('/characters/delete', (req, res)=>{
   const charToDelete = req.body.name;
   try {
-    appController.deleteCharacter(charToDelete);
+    deleteCharacter(charToDelete);
     res.status(204).json({message: `Character with name ${charToDelete} removed from collection`});
   }
   catch (error){
@@ -48,7 +58,7 @@ router.delete('/characters/delete', (req, res)=>{
 router.post('/characters/swap', (req, res)=>{
   const charactersToSwap = req.body.names;
   try {
-    appController.swapCharacters(charactersToSwap);
+    swapCharacters(charactersToSwap);
     res.status(200).json({message: `Characters swapped successfully`});
   }
   catch (error){
@@ -62,11 +72,6 @@ router.post('/characters/swap', (req, res)=>{
 function isEmpty(array){
   return array.length === 0;
 }
-
-function multipleCharactersFound(array){
-  return array.length > 1;
-}
-
 
 module.exports = router;
 
