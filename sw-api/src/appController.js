@@ -25,14 +25,15 @@ async function addCharacter(name){
 
 function deleteCharacter(name){
   let index = getIndex(name);
-  if(indexNotFound(index)){
-    console.log(`Character with name ${name} does not exist in collection, unable to remove character.`);
+  let successful = false;
+  if(characterFound(index)){
+    successful = true;
+    return [successful, characters.splice(index, 1)];
   }
   else {
-    characters.splice(index, 1);
-    console.log(`Character with name ${name} successfully removed`);
-    
+    return successful;
   }
+  
 }
 
 
@@ -66,6 +67,10 @@ function swapCharacters(name1, name2){
 //returns -1 if character with charName is not found
 function getIndex(charName){
   return characters.findIndex((character)=> character.name === charName);
+}
+
+function characterFound(index){
+  return index !== -1;
 }
 
 function isEmpty (array){
