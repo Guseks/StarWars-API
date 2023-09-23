@@ -25,42 +25,50 @@ async function addCharacter(name){
 
 function deleteCharacter(name){
   let index = getIndex(name);
-  let successful = false;
   if(characterFound(index)){
-    successful = true;
-    return [successful, characters.splice(index, 1)];
+    characters.splice(index, 1);
+    return 
   }
   else {
-    return successful;
+    throw new Error(`Character with name ${name} not found in collection. Unable to delete character.`);
   }
   
 }
 
 
 
-function swapCharacters(name1, name2){
-  let index1 = getIndex(name1);
-  let index2 = getIndex(name2);
-  if(index1 === -1){
-    console.log(`${name1} does not exist in the collection. Unable to swap.`);
-    return
+function swapCharacters(charactersToSwap){
+  if(charactersToSwap.length !== 2){
+    throw new Error(`You have to provide two characters to Swap. Unable to swap`);
   }
-  else if(index2 === -1){
-    console.log(`${name2} does not exist in the collection. Unable to swap.`);
-    return
+
+  const name1 = charactersToSwap[0];
+  const name2 = charactersToSwap[1];
+  const indexes = helpFindCharacters(name1, name2);
+  
+  if(!characterFound(indexes[0])){
+    throw new Error(`Character with name ${name1} does not exist in collection. Unable to swap`);
   }
-  else {
+  if(!characterFound(indexes[1])){
+    throw new Error(`Character with name ${name2} does not exist in collection. Unable to swap`);
+  }
+  
+  helpSwapCharacters(indexes[0], indexes[1]);
+  return;
+ 
+  function helpFindCharacters(name1, name2){
+    const index1 = getIndex(name1);
+    const index2 = getIndex(name2);
+    return [index1, index2];
+  }
+
+  function helpSwapCharacters(index1, index2){
     let temp = characters[index1];
     characters[index1] = characters[index2];
     characters[index2] = temp; 
-
-    //print success message
-    console.log(`\n${name1} and ${name2} have swapped positions in the collection`);
   }
  
 }
-
-
 
 // --------------- Help Functions -----------------
 
@@ -84,15 +92,7 @@ function chooseCharacterToAdd(character){
 function getAllCharacters(){
   return characters;
   
-  /*
-  if(characters.length === 0){
-    console.log("No characters in collection to print");
-  }
-  else {
-    console.log("\nPrinting all current characters:");
-  characters.forEach(c => console.log(c.name));
-  }
-  */
+  
 }
 
 

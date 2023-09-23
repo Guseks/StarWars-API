@@ -33,20 +33,29 @@ router.put('/characters/add', async (req, res)=>{
   res.end();
 });
 
-//Sends all the elevators and their information back to the client. Used mainly for testing.
+
 router.delete('/characters/delete', (req, res)=>{
   const charToDelete = req.body.name;
-  const systemResponse = appController.deleteCharacter(charToDelete);
-  if(isSuccessful(systemResponse)){
-    const deletedCharacter = systemResponse[1];
+  try {
+    appController.deleteCharacter(charToDelete);
     res.status(204).json({message: `Character with name ${charToDelete} removed from collection`});
   }
-  else {
-    res.status(400).json({message: `Character with name ${charToDelete} not found in collection. Unable to delete character.`})
+  catch (error){
+    res.status(400).json({mesage: error.message});
   }
 });
 
-
+router.post('/characters/swap', (req, res)=>{
+  const charactersToSwap = req.body.names;
+  try {
+    appController.swapCharacters(charactersToSwap);
+    res.status(200).json({message: `Characters swapped successfully`});
+  }
+  catch (error){
+    res.status(400).json({mesage: error.message});
+  }
+  
+});
 
 // -------------- Help Functions ----------------
 
@@ -57,14 +66,6 @@ function isEmpty(array){
 function multipleCharactersFound(array){
   return array.length > 1;
 }
-
-function isSuccessful(response){
-  const successful = response[0];
-  return successful;
-}
-
-
-
 
 
 module.exports = router;
