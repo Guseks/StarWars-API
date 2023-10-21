@@ -11,7 +11,10 @@ const AddCharacter = ({characters, setCharacters}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if(newCharacterName.trim() === ""){
-      setNameError("Please provide name of character to add.")
+      setNameError("Please provide name of character to add.");
+    }
+    if(characters.some((character)=> character.name === newCharacterName)) {
+      setNameError("A character with this name already exists in collection.");
     }
     else {
       setNameError(null);
