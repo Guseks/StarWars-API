@@ -23,7 +23,7 @@ const AddCharacter = ({characters, setCharacters}) => {
   };
 
   return (
-    <Container type="operation">
+    <Container type="operation add-character">
       <h3 className='character-headline'>Add Character</h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
