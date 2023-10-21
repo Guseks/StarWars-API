@@ -3,7 +3,7 @@ import "./characterList.css"
 import { useEffect } from 'react';
 import Container from '../Container/Container';
 
-const CharacterList = ({characters }) => {
+const CharacterList = ({characters, onDelete }) => {
 
   useEffect(() => {
     
@@ -40,7 +40,12 @@ const CharacterList = ({characters }) => {
       <div className='list-container'>
         <ul className='list-group'>
           {characters.map((character, index) => {
-            return <li className="list-group-item list-group-item-light" key={index}>{character.name}</li>
+            return (
+            <li className="list-group-item list-group-item-light" key={index}>
+              {character.name}
+              <button type="button" class="btn btn-outline-danger" onClick={()=> onDelete(character.name)}>Delete</button>
+            </li>
+            )
           })}
         </ul>
       </div>

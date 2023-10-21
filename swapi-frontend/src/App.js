@@ -1,16 +1,19 @@
+import { useState } from 'react';
 
 import './App.css';
+
 import Heading from './components/Heading/Heading';
 import Container from './components/Container/Container';
 import CharacterList from './components/CharacterList/CharacterList';
 import AddCharacter from './components/AddCharacter/AddCharacter';
 import SwapCharacters from './components/SwapCharacters/SwapCharacters';
-import DeleteCharacter from './components/DeleteCharacter/DeleteCharacter';
+
+
 
 
 function App() {
 
-  const characters = [
+  const [characters, setCharacters] = useState([
     {name: "Luke Skywalker", movies: "Return of the Jedi"},
     {name: "Anakin Skywalker", movies: "Clone Wars"},
     {name: "Yoda", movies: "Clone Wars"},
@@ -20,17 +23,23 @@ function App() {
     {name: "Grevious", movies: "Clone Wars"}
     
 
-  ]
+  ]);
+
+  const handleDelete = (characterToDelete) => {
+    console.log(`Removing character with name ${characterToDelete}`);
+    const updatedCharacters = characters.filter((char) => char.name !== characterToDelete);
+
+    setCharacters(updatedCharacters);
+  }
 
   return (
     <div className="App">
       <Heading />
       <Container type="content">
-        <CharacterList characters={characters}/>
+        <CharacterList characters={characters} onDelete={handleDelete}/>
         <Container type="operations">
-          <AddCharacter />            
-          <SwapCharacters />  
-          <DeleteCharacter />
+          <AddCharacter characters={characters} setCharacters={setCharacters}/>            
+          <SwapCharacters  />  
         </Container>
       </Container>
     </div>
