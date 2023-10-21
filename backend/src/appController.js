@@ -85,9 +85,6 @@ function isEmpty (array){
   return array.length === 0;
 }
 
-function chooseCharacterToAdd(character){
-  characters.push(character);
-}
 
 function getAllCharacters(){
   return characters;

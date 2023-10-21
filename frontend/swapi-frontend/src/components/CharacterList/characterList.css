@@ -1,0 +1,41 @@
+h3 {
+  color: rgb(40,40,40);
+  text-decoration: underline;
+}
+
+li {
+  
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.list-header {
+  position: sticky;
+  top: 0;
+  background-color: white; /* Change the background color as needed */
+  z-index: 1; /* Ensure the header is on top */
+  padding: 10px;
+  
+  border-radius: 5px;
+  
+}
+
+.list-container {
+  position: relative;
+  overflow-y: auto;
+  max-height: 400px;
+  margin-top: 10px;
+  
+
+}
+
+.hidden {
+  opacity: 0;
+  height: 0;
+  
+}
+
+.list-group-item {
+  opacity: 1;
+  transition: 0.1s ease;
+}

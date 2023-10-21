@@ -1,0 +1,51 @@
+import React from 'react'
+import "./characterList.css"
+import { useEffect } from 'react';
+import Container from '../Container/Container';
+
+const CharacterList = ({characters }) => {
+
+  useEffect(() => {
+    
+    const listContainer = document.querySelector('.list-container');
+    listContainer.addEventListener('scroll', handleScroll);
+
+    
+    return () => {
+      listContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  
+  const handleScroll = () => {
+    const listItems = document.querySelectorAll('.list-group-item');
+    const listContainer = document.querySelector('.list-container');
+    const listRect = listContainer.getBoundingClientRect();
+    listItems.forEach((item) => {
+      const itemRect = item.getBoundingClientRect();
+      if (itemRect.top > listRect.bottom || itemRect.bottom < listRect.top) {
+        item.classList.add('hidden');
+      } else {
+        item.classList.remove('hidden');
+      }
+    });
+  };
+
+
+  return (
+    <Container type="list">
+      <div className='list-header'>
+        <h3>List of characters in collection</h3>
+      </div>
+      <div className='list-container'>
+        <ul className='list-group'>
+          {characters.map((character, index) => {
+            return <li className="list-group-item list-group-item-light" key={index}>{character.name}</li>
+          })}
+        </ul>
+      </div>
+    </Container>
+  )
+}
+
+export default CharacterList
