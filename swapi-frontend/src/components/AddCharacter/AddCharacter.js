@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "./addCharacter.css"
 import Container from '../Container/Container'
 
-const AddCharacter = ({characters, setCharacters}) => {
+const AddCharacter = ({characters, setCharacters, addCharacterAndCallAPI}) => {
 
   const [newCharacterName, setNewCharacterName] = useState("");
 
@@ -18,9 +18,14 @@ const AddCharacter = ({characters, setCharacters}) => {
     }
     else {
       setNameError(null);
+      addCharacterAndCallAPI(newCharacterName);
+      setNewCharacterName("");
+
+      /*
       const newCharacter = {name: newCharacterName};
       setCharacters([...characters, newCharacter]);
       setNewCharacterName("");
+      */
     }
     
   };

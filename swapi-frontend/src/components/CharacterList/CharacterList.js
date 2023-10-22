@@ -43,7 +43,7 @@ const CharacterList = ({characters, onDelete }) => {
             return (
             <li className="list-group-item list-group-item-light" key={index}>
               {character.name}
-              <button type="button" class="btn btn-outline-danger" onClick={()=> onDelete(character.name)}>Delete</button>
+              <button type="button" className="btn btn-outline-danger" onClick={()=> onDelete(character.name)}>Delete</button>
             </li>
             )
           })}
