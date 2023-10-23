@@ -11,7 +11,7 @@ async function addCharacter(name){
   
   }
   if(multipleCharactersFound(result)){
-    throw new MultipleCharactersFoundError(`Found more than 1 character matching that name. Please provide a full name.`, result);
+    throw new MultipleCharactersFoundError(`Found more than 1 character matching that name. Please provide a unique name.`, result);
     
   }
   else {

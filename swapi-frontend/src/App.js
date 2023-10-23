@@ -7,7 +7,7 @@ import Container from './components/Container/Container';
 import CharacterList from './components/CharacterList/CharacterList';
 import AddCharacter from './components/AddCharacter/AddCharacter';
 import SwapCharacters from './components/SwapCharacters/SwapCharacters';
-
+import MessageComponent from './components/MessageComponent/MessageComponent';
 
 
 
@@ -26,6 +26,9 @@ function App() {
   ]);*/
 
   const [characters, setCharacters] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   //const [databaseError, setDatabaseError] = useState("");
 
@@ -44,22 +47,32 @@ function App() {
 
   const addCharacterAndCallAPI = async (newCharacterName) => {
     try {
+      setLoading(true);
       const response = await axios.put("http://localhost:3000/swapi/characters/add", {name: newCharacterName});
       
-
+      //Successfull
+      setLoading(false);
       if(response.status === 201){
-        //Successfull
-        
-        console.log(response.data.character[0]);
         const newCharacter = response.data.character[0];
         setCharacters([...characters, newCharacter]);
-      }
-      else {
-        console.error(`API request faild with status: ${response.status}`);
+        setSuccessMessage("Character added successfully!")
+
+        setTimeout(()=> setSuccessMessage(null), 3000);
       }
     }
     catch (err) {
-      console.log(`API request error: ${err.message}`);
+      setLoading(false);
+      if(err.response && err.response.status === 400){
+        
+        setErrorMessage(err.response.data.message);
+        setTimeout(()=> setErrorMessage(null), 10000);  
+      }
+      else {
+        setErrorMessage(`Error: ${err.message}`);
+        setTimeout(()=> setErrorMessage(null), 10000);
+      }
+      
+      
     }
     
   }
@@ -68,12 +81,17 @@ function App() {
     <div className="App">
       <Heading />
       <Container type="content">
-        <CharacterList characters={characters} onDelete={handleDelete}/>
+        
+        <CharacterList characters={characters} onDelete={handleDelete} loading={loading}/>
         <Container type="operations">
           <AddCharacter characters={characters} setCharacters={setCharacters} addCharacterAndCallAPI={addCharacterAndCallAPI}/>            
           <SwapCharacters  />  
         </Container>
       </Container>
+      <Container type="messages">
+         <MessageComponent successMessage={successMessage} errorMessage={errorMessage}/>
+      </Container>
+      
     </div>
   );
 }

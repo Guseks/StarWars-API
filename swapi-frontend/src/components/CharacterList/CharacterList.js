@@ -3,7 +3,7 @@ import "./characterList.css"
 import { useEffect } from 'react';
 import Container from '../Container/Container';
 
-const CharacterList = ({characters, onDelete }) => {
+const CharacterList = ({characters, onDelete, loading }) => {
 
   useEffect(() => {
     
@@ -35,7 +35,8 @@ const CharacterList = ({characters, onDelete }) => {
   return (
     <Container type="list">
       <div className='list-header'>
-        <h3>List of characters in collection</h3>
+        <h4 className='list-headline'>List of characters in collection</h4>
+        {loading && <div className='spinner-border spinner-border-sm' role="status"></div>}
       </div>
       <div className='list-container'>
         <ul className='list-group'>

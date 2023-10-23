@@ -1,6 +1,7 @@
-h3 {
+.list-headline {
   color: rgb(40,40,40);
-  text-decoration: underline;
+  font-size: 20px;
+  margin-right: 50px;
 }
 
 li {
@@ -13,7 +14,7 @@ li {
 
 li .btn {
   position: absolute;
-  left: 350px;
+  left: 300px;
   top: 18%;
   padding: 0px 5px;
 }
@@ -24,7 +25,8 @@ li .btn {
   background-color: white; /* Change the background color as needed */
   z-index: 1; /* Ensure the header is on top */
   padding: 10px;
-  
+  display: flex;
+  align-items: center;
   border-radius: 5px;
   
 }
