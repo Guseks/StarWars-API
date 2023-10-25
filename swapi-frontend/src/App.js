@@ -55,7 +55,7 @@ function App() {
       if(response.status === 201){
         const newCharacter = response.data.character[0];
         setCharacters([...characters, newCharacter]);
-        setSuccessMessage("Character added successfully!")
+        setSuccessMessage(response.data.message);
 
         setTimeout(()=> setSuccessMessage(null), 3000);
       }
