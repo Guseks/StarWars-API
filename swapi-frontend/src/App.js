@@ -8,38 +8,26 @@ import CharacterList from './components/CharacterList/CharacterList';
 import AddCharacter from './components/AddCharacter/AddCharacter';
 import SwapCharacters from './components/SwapCharacters/SwapCharacters';
 import MessageComponent from './components/MessageComponent/MessageComponent';
-import { addCharacterAndCallAPI, deleteCharacterAndCallAPI } from './services/characterService';
+import { addCharacterAndCallAPI, deleteCharacterAndCallAPI, swapCharactersAndCallAPI } from './services/characterService';
 
 
 
 function App() {
 
-  /*const [characters, setCharacters] = useState([
-    {name: "Luke Skywalker", movies: "Return of the Jedi"},
-    {name: "Anakin Skywalker", movies: "Clone Wars"},
-    {name: "Yoda", movies: "Clone Wars"},
-    {name: "Emperor", movies: "Clone Wars"},
-    {name: "Han Solo", movies: "Clone Wars"},
-    {name: "Leia", movies: "Clone Wars"},
-    {name: "Grevious", movies: "Clone Wars"}
-    
-
-  ]);*/
-
   const [characters, setCharacters] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [charactersSwapped, setCharactersSwapped] = useState(null);
 
 
-  const stateVariables = [characters, setCharacters, setLoading, setSuccessMessage, setErrorMessage];
-  //const [databaseError, setDatabaseError] = useState("");
+  const stateVariables = {charactersSwapped, setCharactersSwapped, characters, setCharacters, setLoading, setSuccessMessage, setErrorMessage};
 
   useEffect(()=>{
     axios.get("http://localhost:3000/swapi/characters/")
       .then((res) => setCharacters([...res.data]))
       .catch((err) => console.log(err));
-  }, []);
+  }, [charactersSwapped]);
 
   const handleAddCharacter = (newCharacterName) => {
     addCharacterAndCallAPI(newCharacterName, stateVariables);
@@ -49,6 +37,10 @@ function App() {
     deleteCharacterAndCallAPI(characterName, stateVariables);    
   }
 
+  const handleSwapCharacters = (firstCharacterName, secondCharacterName) => {
+    swapCharactersAndCallAPI(firstCharacterName, secondCharacterName, stateVariables);
+    console.log(characters);
+  }
   
 
   return (
@@ -59,7 +51,7 @@ function App() {
         <CharacterList characters={characters} onDelete={handleDelete} loading={loading}/>
         <Container type="operations">
           <AddCharacter characters={characters} addCharacterAndCallAPI={handleAddCharacter}/>            
-          <SwapCharacters  />  
+          <SwapCharacters  characters={characters} handleSwapCharacters={handleSwapCharacters}/>  
         </Container>
       </Container>
       <Container type="messages">
@@ -71,20 +63,3 @@ function App() {
 }
 
 export default App;
-
-
-/*
-<div className="container-content">
-        
-       
-  <div className="container-operations">
-    <div className="operation">
-      
-    </div>
-    <div className="operation">
-      
-    </div>
-  </div>  
-
-</div>
-*/
