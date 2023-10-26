@@ -8,7 +8,7 @@ import CharacterList from './components/CharacterList/CharacterList';
 import AddCharacter from './components/AddCharacter/AddCharacter';
 import SwapCharacters from './components/SwapCharacters/SwapCharacters';
 import MessageComponent from './components/MessageComponent/MessageComponent';
-import { addCharacterAndCallAPI } from './services/characterService';
+import { addCharacterAndCallAPI, deleteCharacterAndCallAPI } from './services/characterService';
 
 
 
@@ -45,11 +45,8 @@ function App() {
     addCharacterAndCallAPI(newCharacterName, stateVariables);
   }
 
-  const handleDelete = (characterToDelete) => {
-    console.log(`Removing character with name ${characterToDelete}`);
-    const updatedCharacters = characters.filter((char) => char.name !== characterToDelete);
-
-    setCharacters(updatedCharacters);
+  const handleDelete = (characterName) => {
+    deleteCharacterAndCallAPI(characterName, stateVariables);    
   }
 
   

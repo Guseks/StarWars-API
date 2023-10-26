@@ -44,11 +44,11 @@ router.put('/characters/add', async (req, res)=>{
 });
 
 
-router.delete('/characters/delete', (req, res)=>{
-  const charToDelete = req.body.name;
+router.delete('/characters/delete/:name', (req, res)=>{
+  const charToDelete = req.params.name;
   try {
     deleteCharacter(charToDelete);
-    res.status(204).json({message: `Character with name ${charToDelete} removed from collection`});
+    res.status(200).json({message: `Character with name ${charToDelete} removed from collection`});
   }
   catch (error){
     res.status(400).json({mesage: error.message});
