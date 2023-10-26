@@ -8,6 +8,7 @@ import CharacterList from './components/CharacterList/CharacterList';
 import AddCharacter from './components/AddCharacter/AddCharacter';
 import SwapCharacters from './components/SwapCharacters/SwapCharacters';
 import MessageComponent from './components/MessageComponent/MessageComponent';
+import { addCharacterAndCallAPI } from './services/characterService';
 
 
 
@@ -30,6 +31,8 @@ function App() {
   const [successMessage, setSuccessMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
+  const stateVariables = [characters, setCharacters, setLoading, setSuccessMessage, setErrorMessage];
   //const [databaseError, setDatabaseError] = useState("");
 
   useEffect(()=>{
@@ -38,6 +41,10 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleAddCharacter = (newCharacterName) => {
+    addCharacterAndCallAPI(newCharacterName, stateVariables);
+  }
+
   const handleDelete = (characterToDelete) => {
     console.log(`Removing character with name ${characterToDelete}`);
     const updatedCharacters = characters.filter((char) => char.name !== characterToDelete);
@@ -45,37 +52,7 @@ function App() {
     setCharacters(updatedCharacters);
   }
 
-  const addCharacterAndCallAPI = async (newCharacterName) => {
-    try {
-      setLoading(true);
-      const response = await axios.put("http://localhost:3000/swapi/characters/add", {name: newCharacterName});
-      
-      //Successfull
-      setLoading(false);
-      if(response.status === 201){
-        const newCharacter = response.data.character[0];
-        setCharacters([...characters, newCharacter]);
-        setSuccessMessage(response.data.message);
-
-        setTimeout(()=> setSuccessMessage(null), 3000);
-      }
-    }
-    catch (err) {
-      setLoading(false);
-      if(err.response && err.response.status === 400){
-        
-        setErrorMessage(err.response.data.message);
-        setTimeout(()=> setErrorMessage(null), 10000);  
-      }
-      else {
-        setErrorMessage(`Error: ${err.message}`);
-        setTimeout(()=> setErrorMessage(null), 10000);
-      }
-      
-      
-    }
-    
-  }
+  
 
   return (
     <div className="App">
@@ -84,7 +61,7 @@ function App() {
         
         <CharacterList characters={characters} onDelete={handleDelete} loading={loading}/>
         <Container type="operations">
-          <AddCharacter characters={characters} setCharacters={setCharacters} addCharacterAndCallAPI={addCharacterAndCallAPI}/>            
+          <AddCharacter characters={characters} addCharacterAndCallAPI={handleAddCharacter}/>            
           <SwapCharacters  />  
         </Container>
       </Container>
