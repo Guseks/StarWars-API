@@ -22,11 +22,6 @@ const AddCharacter = ({characters, addCharacterAndCallAPI}) => {
       addCharacterAndCallAPI(newCharacterName);
       setNewCharacterName("");
 
-      /*
-      const newCharacter = {name: newCharacterName};
-      setCharacters([...characters, newCharacter]);
-      setNewCharacterName("");
-      */
     }
     
   };

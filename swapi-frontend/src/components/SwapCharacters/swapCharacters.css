@@ -6,3 +6,7 @@
 .swap-error {
   height: 30px;
 }
+
+.swap-button {
+  padding: 2px 8px;
+}

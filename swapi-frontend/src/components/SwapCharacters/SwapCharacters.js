@@ -55,7 +55,7 @@ const SwapCharacters = ({characters, handleSwapCharacters}) => {
         {swapError && <div className='text-danger'>{swapError}</div>}  
       </div>
       
-      <button className="btn btn-secondary mb-2" onClick={checkSelections}>Swap Characters</button>
+      <button className="btn btn-secondary swap-button" onClick={checkSelections}>Swap Characters</button>
     </Container>
   )
 }
