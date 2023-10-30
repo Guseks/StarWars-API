@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <Heading />
+      <Heading headline={"Starwars API"}/>
       <Container type="content">
         
         <CharacterList characters={characters} onDelete={handleDelete} loading={loading}/>
