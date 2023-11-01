@@ -1,33 +1,36 @@
 # StarWars API
 
-Provide a clear and brief explanation of what your project does and its purpose.
+Application for managing a collection of star wars characters. App interacts with external API to gather information about characters specified by the user.
 
 ## Installation and Setup
-- List the prerequisites and dependencies necessary to run the project.
-- Provide detailed steps for setting up the project locally.
+Information regarding installation and launching application.
 
-### Backend
-Explain how to set up and run the backend part of your project. Include instructions on installing dependencies, configuring the database, and starting the server. For example:
+### Requirements
+- Windows computer
+- Access to a terminal
+- Required libraries will be installed
+
+### Installations and start app
+To install the required dependencies for each section of the app start by navigating to the root folder of the app in your terminal.  
+Run the following command in your terminal.
 
 ```bash
-# Install backend dependencies
+# Install project dependencies
 npm install
 
-# Configure the database connection in config.js
+```
+After installation is complete. Start the application by running the following command in the root folder of the project in your terminal.
 
+```bash
 # Start the server
 npm start
 ```
-
-### Frontend
-
-Explain how to start the frontend
 
 ## Project Features
 
 ### Backend - API Endpoints
 
-### Frontend - Functionality
+### Frontend
 
 ### Usage examples
 
@@ -36,6 +39,9 @@ Explain how to start the frontend
 ## Technologies Used
 
 ### Languages
+- JavaScript
 
 ### Libraries and Frameworks
+- React
+- Express
 
