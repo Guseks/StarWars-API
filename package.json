@@ -1,8 +1,12 @@
 {
-  "dependencies": {
-    "concurrently": "^8.2.2"
-  },
+
+  "name": "starwars-api",
+  "private": true,
+  "workspaces": ["backend", "swapi-frontend"],
   "scripts": {
-    "start": "concurrently \"cd swapi-frontend && npm start\" \"cd backend && node index.js\"" 
+    "start": "concurrently \"cd swapi-frontend && npm start\" \"cd backend && npm start\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
