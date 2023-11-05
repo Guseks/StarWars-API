@@ -22,15 +22,53 @@ npm install
 After installation is complete. Start the application by running the following command in the root folder of the project in your terminal.
 
 ```bash
-# Start the server
+# Start the application. Launches both the frontend and the backend.
 npm start
 ```
 
-## Project Features
+## Backend - API Endpoints
 
-### Backend - API Endpoints
+### Get All Characters
 
-### Frontend
+- **Endpoint:** `/characters/`
+- **Method:** GET
+- **Description:** Retrieves all characters from the collection. 
+-  **Response:**
+   -  Returns a JSON array of characters in collection if the collection is not empty. Also sends status code of 200. 
+   -  Returns status 200, with a message "No characters in collection" if the collection is empty.
+
+
+### Add Character
+- **Endpoint:** `/characters/add`
+- **Method:** PUT
+- **Description:** Adds a character to the collection.
+- **Request Body:** JSON with character's name.
+- **Response:**
+  - 201 Created: Returns a message and the added character's details if successful.
+  - 400 Bad Request: Returns an error message if there are issues, including a message if multiple characters are found.
+
+### Delete Character
+
+- **Endpoint:** `/characters/delete/:name`
+- **Method:** DELETE
+- **Description:** Deletes a character from the collection by name.
+- **Response:**
+  - 200 OK: Returns a message if the character was successfully removed.
+  - 400 Bad Request: Returns an error message if there are issues.
+
+
+### Swap Characters
+
+- **Endpoint:** `/characters/swap`
+- **Method:** POST
+- **Description:** Swaps the positions of characters in the collection.
+- **Request Body:** JSON array with name of characters to swap.
+- **Response:**
+  - 200 OK: Returns a message if the characters were swapped successfully.
+  - 400 Bad Request: Returns an error message if there are issues.
+
+
+## Frontend
 
 ### Usage examples
 
