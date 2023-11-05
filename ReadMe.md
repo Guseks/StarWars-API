@@ -70,9 +70,52 @@ npm start
 
 ## Frontend
 
-### Usage examples
+<img src="images/frontend-overview.png" alt="Frontend Screenshot" width="550" height="400">
+
+The frontend consists of four components:
+- A list of current characters in collection
+- A input field to add new characters with a specified name together with a button
+- A component used for swapping position of two characters in collection
+- A component responsible for communicating status messages to the user
+
+### Usage
+- The user can attempt to add a character by providing a name of the character they wish to add. If a character with that  
+  name exists in the star wars universe it is added to the collection. A status message is displayed to inticate success. 
+
+- By clicking the delete button next to a character in the list the user can remove a character from the collection
+
+- The user can also swap position of two characters by selecting two unique characters from the dropdown lists and clicking the button
+
 
 ## Project Structure
+The project is located in two different folders: backend and swapi-frontend. These folders contain the code used to operate the respective parts of the application. 
+
+### Backend
+The structure in the backend is as follows:
+
+```
+backend/
+node_modules
+src/
+  api.js
+  app.js
+  appController.js
+  routes.js
+.gitignore
+index.js
+package.json
+README.md
+
+```
+
+- `api.js` handles interactions with external API containing data on star wars characters.
+- `app.js` sets up the Express application
+- `appController.js` is responsible for the actual operations in the backend. The logic and performing the actual operations by calling other help functions.
+- `routes.js` configures my API routes
+- `index.js` serves as the entry point for the backend. 
+
+### Frontend
+
 
 ## Technologies Used
 
