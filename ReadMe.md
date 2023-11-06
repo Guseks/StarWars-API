@@ -94,6 +94,7 @@ The project is located in two different folders: backend and swapi-frontend. The
 The structure in the backend is as follows:
 
 ```
+
 backend/
 node_modules
 src/
@@ -116,6 +117,43 @@ README.md
 
 ### Frontend
 
+The file structure in the frontend of the application is as follows:
+
+```
+
+swapi-frontend/
+  node_modules
+  public/
+    ...
+  src/
+    components/
+     AddCharacter/
+     CharacterList/
+     Container/
+     DeleteCharacter/
+     Heading/
+     MessageComponent/
+     SwapCharacters/
+    services/
+      characterService.js
+    App.css
+    App.js
+    index.css
+    index.js
+  .gitignore
+  package.json
+
+```
+
+- `public` folder contains code related to a production build. This applicaton is running in development mode so the files in this folder are not used.  
+  Placeholder for when the app is build for production.
+
+- `src` folder contains all the source code for the frontend.
+- `index.js` is the entrypoint to the application. In this file the react application is started and the App component is mounted. 
+- `Components` folder contains all the different components used to build the frontend.  
+  Each components has a folder used to store the source code and the css code for that particular component.
+- `App.js` is the file that assembles the frontend. Here each component is mounted and the structure of the page is created.  
+ This file or module is considered the main component in the frontend and holds it all together.
 
 ## Technologies Used
 
@@ -125,4 +163,6 @@ README.md
 ### Libraries and Frameworks
 - React
 - Express
+- Axios for making API requests
+- Bootstrap for styling
 
