@@ -6,8 +6,8 @@ Application for managing a collection of star wars characters. App interacts wit
 Information regarding installation and launching application.
 
 ### Requirements
-- Windows computer
 - Access to a terminal
+- Node.js and Node Package Manager installed
 - Required libraries will be installed
 
 ### Installations and start app
