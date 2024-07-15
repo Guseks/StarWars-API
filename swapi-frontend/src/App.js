@@ -25,7 +25,11 @@ function App() {
 
   useEffect(()=>{
     axios.get("http://localhost:3000/swapi/characters/")
-      .then((res) => setCharacters([...res.data]))
+      .then((res) => {
+        if(res.data.message !== "No characters in collection"){
+          setCharacters([...res.data])
+        }
+      })
       .catch((err) => console.log(err));
   }, [charactersSwapped]);
 
